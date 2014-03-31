@@ -39,8 +39,8 @@ but these are defined as git submodules, so `install.sh` takes care of them.
 ### To install
 
 * Install dependencies mentioned above
-* Run `./install.sh` to create `cherrypy.conf` and `appdir.py`
-* Edit `cherrypy.conf` (at least edit the user:password@ at the rpc url)
+* Run `./install.sh` to create `cherrypy.config` and `appdir.py`
+* Edit `cherrypy.config` (at least edit the user:password@ at the rpc url)
 
 ### To run
 * `python swizzler.py`
