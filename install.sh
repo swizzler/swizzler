@@ -13,5 +13,5 @@ else
 fi
 if [ ! -f appdir.py ] ; then
     echo "# Stupid but effective trick to know where we are:">appdir.py
-    echo "APPDIR = '$(pwd)'">appdir.py
+    echo "APPDIR = '$(pwd)'">>appdir.py
 fi
