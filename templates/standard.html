@@ -26,25 +26,25 @@
                       {{#username}}
                         <h4 class="media-heading">
                           {{#is_feed}}
-                            <a href="/home/{{.}}" title="@{{.}}'s home"><span class="glyphicon glyphicon-home"></span></a> {{fullname}}
+                            <a href="/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span></a> {{fullname}}
                           {{/is_feed}}
                           {{#is_mentions}}
-                            <a href="/home/{{.}}/mentions" title="@{{.}}'s home"><span class="glyphicon glyphicon-bell"></span></a> {{fullname}}
+                            <a href="/home/{{username}}/mentions" title="@{{username}}'s home"><span class="glyphicon glyphicon-bell"></span></a> {{fullname}}
                           {{/is_mentions}}
                           {{#is_messages}}
-                            <a href="/messages/{{.}}" title="@{{.}}'s home"><span class="glyphicon glyphicon-envelope"></span></a> {{fullname}}
+                            <a href="/messages/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-envelope"></span></a> {{fullname}}
                           {{/is_messages}}
                         </h4>
                         {{^is_feed}}
-                          <a href="/home/{{.}}" title="@{{.}}'s home"><span class="glyphicon glyphicon-home"></span></a>
+                          <a href="/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span></a>
                         {{/is_feed}}
                         {{^is_mentions}}
-                          <a href="/home/{{.}}/mentions" title="mentions of @{{.}}"><span class="glyphicon glyphicon-bell"></span></a>
+                          <a href="/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span></a>
                         {{/is_mentions}}
                         {{^is_messages}}
-                          <a href="/messages/{{.}}" title="direct messages from/to @{{.}}"><span class="glyphicon glyphicon-envelope"></span></a>
+                          <a href="/messages/{{username}}" title="direct messages from/to @{{username}}"><span class="glyphicon glyphicon-envelope"></span></a>
                         {{/is_messages}}
-                        <a href="/user/{{.}}" title="@{{.}}'s profile"><span class="glyphicon glyphicon-user"></span></a>
+                        <a href="/user/{{username}}" title="@{{username}}'s profile"><span class="glyphicon glyphicon-user"></span></a>
                       {{/username}}
                     {{/is_home}}
                     {{#is_user}}
