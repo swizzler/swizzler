@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html language="{{lang}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/assets/css/swizzler.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div id="main" class="col-md-8">
+          <div class="row">
+            <div id="header" class="col-md-12 well">
+              {{#subject}}
+                <div class="media">
+                  <a class="pull-left thumbnail" href="{{#username}}/user/{{.}}{{/username}}{{^username}}#{{/username}}">
+                    <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
+                  </a>
+                  <div class="media-body">
+                    {{#is_home}}
+                      {{#username}}
+                        <h4 class="media-heading">
+                          {{#is_feed}}
+                            <a href="/home/{{.}}" title="@{{.}}'s home"><span class="glyphicon glyphicon-home"></span></a> {{fullname}}
+                          {{/is_feed}}
+                          {{#is_mentions}}
+                            <a href="/home/{{.}}/mentions" title="@{{.}}'s home"><span class="glyphicon glyphicon-bell"></span></a> {{fullname}}
+                          {{/is_mentions}}
+                          {{#is_messages}}
+                            <a href="/messages/{{.}}" title="@{{.}}'s home"><span class="glyphicon glyphicon-envelope"></span></a> {{fullname}}
+                          {{/is_messages}}
+                        </h4>
+                        {{^is_feed}}
+                          <a href="/home/{{.}}" title="@{{.}}'s home"><span class="glyphicon glyphicon-home"></span></a>
+                        {{/is_feed}}
+                        {{^is_mentions}}
+                          <a href="/home/{{.}}/mentions" title="mentions of @{{.}}"><span class="glyphicon glyphicon-bell"></span></a>
+                        {{/is_mentions}}
+                        {{^is_messages}}
+                          <a href="/messages/{{.}}" title="direct messages from/to @{{.}}"><span class="glyphicon glyphicon-envelope"></span></a>
+                        {{/is_messages}}
+                        <a href="/user/{{.}}" title="@{{.}}'s profile"><span class="glyphicon glyphicon-user"></span></a>
+                      {{/username}}
+                    {{/is_home}}
+                    {{#is_user}}
+                      <h4 class="media-heading">
+                        {{#location}}<span class="pull-right small">{{.}}</span>{{/location}}
+                        {{fullname}}
+                        {{#url}}<small><a href="{{.}}">{{.}}</a></small>{{/url}}</h4>
+                      {{{bio}}}
+                    {{/is_user}}
+                    {{#is_tag}}
+                      <h2 class="media-heading">
+                        <small><span class="glyphicon glyphicon-tag"></span> Latest twists containing the tag:</small><br>
+                        #{{fullname}}
+                      </h2>
+                    {{/is_tag}}
+                  </div>
+                </div>
+              {{/subject}}
+            </div>
+          </div>
+          <div class="row">
+            <div id="messages" class="col-md-12">
+            {{#messages}}<ul class="list-group media-list">{{> message}}</ul>{{/messages}}
+            {{^messages}}
+              <h4><small>Nothing. Nada. Rien de rien. &#128557;</small></h4>
+            {{/messages}}
+            </div>
+          </div>
+        </div>
+        <div id="sidebar" class="col-md-4">
+          {{> sidebar}}
+        </div>
+      </div>
+      {{> footer}}
+    </div> <!-- /container -->
+  </body>
+</html>
+

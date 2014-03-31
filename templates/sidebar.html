@@ -1,0 +1,38 @@
+<div class="panel panel-primary">
+  <div class="panel-heading"><h3 class="panel-title"><span class="glyphicon glyphicon-home"></span> Local users</h3></div>          
+  <ul class="panel-body list-group media-list">
+    {{#local_users}}
+      <li class="media list-group-item avatars32{{#active}} active{{/active}}">
+        <a {{#username}}title="@{{username}}'s home" {{/username}}class="pull-left thumbnail" href="/{{#username}}home/{{.}}{{/username}}">
+          <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
+        </a>
+        <div class="media-body">
+          <h5 class="media-heading">
+            {{^active}}
+              <a {{#username}}title="@{{username}}'s home"{{/username}}
+                 href="/{{#username}}home/{{.}}{{/username}}">{{/active}}{{fullname}}{{^active}}</a>
+            {{/active}}
+          </h5>
+          {{^active}}
+            {{#username}}
+              <a href="/home/{{.}}" title="@{{.}}'s home"><span class="glyphicon glyphicon-home"></span></a>
+              <a href="/home/{{.}}/mentions" title="mentions of @{{.}}"><span class="glyphicon glyphicon-bell"></span></a>
+              <a href="/messages/{{.}}" title="direct messages from/to @{{.}}"><span class="glyphicon glyphicon-envelope"></span></a>
+              <a href="/user/{{.}}" title="@{{.}}'s profile"><span class="glyphicon glyphicon-user"></span></a>
+            {{/username}}
+            {{^username}}
+              (view sponsored posts)
+            {{/username}}
+          {{/active}}
+        </div>
+      </li>
+    {{/local_users}}
+  </ul>
+</div>
+<div class="panel panel-primary">
+  <div class="panel-heading"><h3 class="panel-title"><span class="glyphicon glyphicon-tags"></span> Trending tags</h3></div>          
+  <ul class="panel-body list-group media-list">
+    {{#trending}}<li class="list-group-item">{{{.}}}</li>{{/trending}}
+    {{^trending}}<li class="list-group-item"><h2><span class="glyphicon glyphicon-trash"></span>The internet is rubbish today</h2>{{/trending}}
+  </ul>
+</div>

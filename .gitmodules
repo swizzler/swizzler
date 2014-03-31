@@ -1,0 +1,6 @@
+[submodule "dependencies/functioncache"]
+	path = dependencies/functioncache
+	url = https://github.com/thedod/functioncache.git
+[submodule "dependencies/python-bitcoinrpc"]
+	path = dependencies/python-bitcoinrpc
+	url = https://github.com/thedod/python-bitcoinrpc.git

@@ -1,0 +1,10 @@
+# Site specific files
+cherrypy.config
+appdir.py
+# local dev folders
+future
+# The usual suspects
+*.pyc
+*.swp
+*~
+README.html

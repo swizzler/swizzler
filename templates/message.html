@@ -1,0 +1,45 @@
+<li class="list-group-item media">
+  {{#user}}
+    {{#username}}
+      <a class="pull-left thumbnail" href="/user/{{.}}" title="@{{.}}'s profile">
+        <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/genericPerson.png{{/avatar}}" alt="{{fullname}}">
+      </a>
+    {{/username}}
+    {{^username}}
+      <a class="pull-left thumbnail" href="#">
+        <img class="media-object avatar" src="/assets/img/twister-64.jpg" alt="{{fullname}}">
+      </a>
+    {{/username}}
+  {{/user}}
+  <div class="media-body">
+    {{#user}}
+      {{#username}}
+        <h5 class="media-heading">
+          <span class="pull-right small">
+            <a title="View twist details" href="/twist/{{.}}/{{k}}">{{time}}</a>
+          </span>
+          {{#rt_user}}
+            <small>
+              <a href="/user/{{username}}" title="@{{username}}'s profile">{{fullname}}</a>
+              <span class="glyphicon glyphicon-retweet"></span>
+            </small>
+          {{/rt_user}}
+          <a href="/user/{{.}}" title="@{{.}}'s profile"><strong>{{fullname}}</strong></a>
+          {{^is_twist}}{{#reply}}
+            <small>
+              <span class="glyphicon glyphicon-share-alt"></span>
+              {{#user}}<a title="Re: @{{username}}'s twist" href="/twist/{{username}}/{{k}}">{{fullname}}</a>{{/user}}
+            </small>
+          {{/reply}}{{/is_twist}}
+        </h5>
+      {{/username}}
+      {{^username}}
+        <h5 class="media-heading">
+          <span class="pull-right small">{{time}}</span>
+          <a href="/">{{fullname}}</a>
+        </h5>
+      {{/username}}
+    {{/user}}
+    {{{message}}}
+  </div>
+</li>

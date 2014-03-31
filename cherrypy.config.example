@@ -1,0 +1,20 @@
+[global]
+server.socket_host: '127.0.0.1'
+server.socket_port: 7919 # SWIZ on a phone keypad :)
+
+[swizzler]
+rpc_url: 'http://user:pwd@127.0.0.1:28332' # change to rpcuser and rpcpassword from ~/.twister/twister.conf
+num_messages: 23 # number of messages per page
+num_trending_tags: 42 # let's party
+hash_salt: 'RANDOM'
+
+[/]
+tools.staticdir.root: "/PATH/HERE/static"
+
+[/favicon.ico]
+tools.staticfile.on: True
+tools.staticfile.filename: "/PATH/HERE/static/favicon.ico"
+
+[/assets]
+tools.staticdir.on: True
+tools.staticdir.dir: "assets"
