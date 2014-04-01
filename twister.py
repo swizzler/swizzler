@@ -41,7 +41,7 @@ class Twister:
                 "reply":self._format_reply(p['userpost'].get('reply',{})),
             })
         return result
-    @functioncache(ignore_instance=True) # cache forever. not supposed to change
+    @functioncache(60*60,ignore_instance=True) # can't cache forever, because maybe user was a skip_cache, in that case it's snafu for an hour :(
     def get_twist(self,username,k):
         p = self.twister.dhtget(username,'post{0}'.format(k),'s')
         if p:
@@ -65,7 +65,8 @@ class Twister:
             return {"username":"","fullname":"Nobody"} # Username is empty. Easier for mustache.
         result = self.twister.dhtget(username,'profile','s')
         if not result:
-            raise SkipCache("user not found: @{0}".format(username), {"username":username,"fullname":"???"})
+            #raise SkipCache("user not found: @{0}".format(username), {"username":username,"fullname":username.capitalize()})
+            return {"username":username,"fullname":username.capitalize()}
         user = result[0]['p']['v']
         user['username'] = username # handy
         if not user.get('fullname'): # happens
@@ -77,7 +78,7 @@ class Twister:
                 user['avatar'] = '/assets/img/genericPerson.png'
         except:
             user['avatar'] = None
-            raise SkipCache("couldn't get avatar for @{0}, not caching".format(username),user)
+            #raise SkipCache("couldn't get avatar for @{0}, not caching".format(username),user)
         return user
     @functioncache(60*5,ignore_instance=True)
     def local_user_menu(self,active_user=None):

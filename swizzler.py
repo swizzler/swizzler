@@ -125,7 +125,7 @@ class SwizzlerApp(object):
 Mining the twister blockchain protects the #twister-verse from attacks like http://twister.net.co/?p=236
 but unlike doge, we don't have shiny coins to offer "our protectors".
 Instead, they enjoy occasional minutes of fame in the form of the sponsored posts you see here.
-We #Respect their their hard earned crypto-graffiti by appreciating them on coffee/spliff/soy-milk/etc. breaks, because that's how we roll yo.
+We #Respect their hard earned crypto-graffiti by appreciating them on coffee/spliff/soy-milk/etc. breaks, because that's how we roll yo.
 Start mining today, and all this (AND moral satisfaction) can be yours.""")
             },
             'messages':twister.get_sponsored_posts(conf['num_messages']),
