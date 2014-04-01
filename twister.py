@@ -41,7 +41,7 @@ class Twister:
                 "reply":self._format_reply(p['userpost'].get('reply',{})),
             })
         return result
-    @functioncache(60*60,ignore_instance=True) # can't cache forever, because maybe user was a skip_cache, in that case it's snafu for an hour :(
+    @functioncache(ignore_instance=True) # Cache forever. One day we'll look at our old avatars and remember how stupid we used to be.
     def get_twist(self,username,k):
         p = self.twister.dhtget(username,'post{0}'.format(k),'s')
         if p:
