@@ -40,7 +40,9 @@ but these are defined as git submodules, so `install.sh` takes care of them.
 
 * Install dependencies mentioned above
 * Run `./install.sh` to create `cherrypy.config` and `appdir.py`
-* Edit `cherrypy.config` (at least edit the user:password@ at the rpc url)
+* Edit `cherrypy.config` (at least edit the user`:`pwd`@` at `rpc_url`,
+  but it's also recommended to uncomment and edit the `browser_user` and `browser_password`
+  lines to enable basic authentication *before* someone develops a swizzler-specific trojan ;) )
 
 ### To run
 * `python swizzler.py`

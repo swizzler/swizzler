@@ -8,6 +8,12 @@ num_messages: 23 # number of messages per page
 num_trending_tags: 42 # let's party
 hash_salt: 'RANDOM'
 
+### Optional (but highly recommended):
+### Uncomment and edit these lines to protect Swizzler with basic browser auth
+### and block [e.g.] trojans from reading your DMs etc.
+#browser_user: 'myeasytorememberuser'
+#browser_password: 'myeasytorememberpassword'
+
 [/]
 tools.staticdir.root: "/PATH/HERE/static"
 
