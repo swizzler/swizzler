@@ -129,3 +129,5 @@ class Twister:
     @functioncache(60,ignore_instance=True)
     def get_trending_tags(self,num=8):
         return self.twister.gettrendinghashtags(num)
+    def get_info(self): # not cached
+        return self.twister.getinfo()

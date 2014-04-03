@@ -13,7 +13,7 @@ class TwistParser(ttp.Parser):
     def format_tag(self, tag, text):
         '''Return formatted HTML for a hashtag.'''
         return '<a href="/tag/{0}">{1}{2}</a>'.format(
-            ttp.urllib.quote(text.lower().encode('utf-8')), tag, text)
+            ttp.urllib.quote(text.lower().encode('utf-8'),'xmlcharrefreplace'), tag, text)
 
     def format_username(self, at_char, user):
         '''Return formatted HTML for a username.'''
@@ -58,6 +58,7 @@ class SwizzlerApp(object):
             'rts':rts,
             'any_rts':not not rts,
             'local_users':twister.local_user_menu()['users'],
+            'info':twister.get_info(),
             'trending':format_trending(twister,conf['num_messages'])
         }
         return stache.render(stache.load_template('twist'),result)
@@ -72,6 +73,7 @@ class SwizzlerApp(object):
             'subject':user,
             'messages':twister.get_user_posts(username,conf['num_messages']),
             'local_users':twister.local_user_menu()['users'],
+            'info':twister.get_info(),
             #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
             'trending':format_trending(twister,conf['num_messages'])
         }
@@ -86,6 +88,7 @@ class SwizzlerApp(object):
             'subject':{"fullname":tag},
             'messages':twister.get_tag_posts(tag),
             'local_users':twister.local_user_menu()['users'],
+            'info':twister.get_info(),
             #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
             'trending':format_trending(twister,conf['num_messages'])
         }
@@ -105,6 +108,7 @@ class SwizzlerApp(object):
             'is_feed':mode!='mentions',
             'title':u"{0} (@{1}): Home - Swizzler".format(menu['active']['fullname'],menu['active']['username']),
             'local_users':menu['users'],
+            'info':twister.get_info(),
             'subject':menu['active'],
             'messages':messages,
             #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
@@ -119,6 +123,7 @@ class SwizzlerApp(object):
             'is_user':True, # i.e. we want to display "bio" and not mentions/DMs/profile buttons
             'title':"Welcome to Swizzler",
             'local_users':twister.local_user_menu('')['users'], # '' means: "Nobody" is active
+            'info':twister.get_info(),
             'subject':{ # pseudo-user describing sponsored posts
                 'fullname':'Sponsored posts',
                 'bio':format_twist("""

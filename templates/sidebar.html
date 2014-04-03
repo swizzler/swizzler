@@ -1,5 +1,10 @@
 <div class="panel panel-primary">
-  <div class="panel-heading"><h3 class="panel-title"><span class="glyphicon glyphicon-home"></span> Local users</h3></div>          
+  <div class="panel-heading">
+    {{#info}}
+      <div class="pull-right badge">Peers: {{dht_nodes}}/{{dht_global_nodes}}</div>
+    {{/info}}
+    <h3 class="panel-title"><span class="glyphicon glyphicon-home"></span> Local users</h3>
+  </div>
   <ul class="panel-body list-group media-list">
     {{#local_users}}
       <li class="media list-group-item avatars32{{#active}} active{{/active}}">
