@@ -29,10 +29,10 @@
                             <a href="/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span></a> {{fullname}}
                           {{/is_feed}}
                           {{#is_mentions}}
-                            <a href="/home/{{username}}/mentions" title="@{{username}}'s home"><span class="glyphicon glyphicon-bell"></span></a> {{fullname}}
+                            <a href="/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span></a> {{fullname}}
                           {{/is_mentions}}
                           {{#is_messages}}
-                            <a href="/messages/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-envelope"></span></a> {{fullname}}
+                            <a href="/messages/{{username}}" title="direct messages to/from @{{username}}"><span class="glyphicon glyphicon-envelope"></span></a> {{fullname}}
                           {{/is_messages}}
                         </h4>
                         {{^is_feed}}
@@ -67,7 +67,7 @@
           </div>
           <div class="row">
             <div id="messages" class="col-md-12">
-            {{#messages}}<ul class="list-group media-list">{{> message}}</ul>{{/messages}}
+            {{#any_messages}}<ul class="list-group media-list">{{#messages}}{{> message}}{{/messages}}</ul>{{/any_messages}}
             {{^messages}}
               <h4><small>Nothing. Nada. Rien de rien. &#128557;</small></h4>
             {{/messages}}

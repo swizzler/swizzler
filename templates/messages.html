@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html language="{{lang}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="/assets/css/swizzler.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div id="main" class="col-md-8">
+          <div class="row">
+            <div id="header" class="col-md-12 well">
+              {{#subject}}
+                <div class="media">
+                  <a class="pull-left thumbnail" href="/user/{{username}}">
+                    <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
+                  </a>
+                  <div class="media-body">
+                        <h4 class="media-heading">
+                          <a href="/messages/{{username}}{{#remoteuser}}/{{username}}{{/remoteuser}}"
+                             title="@{{username}}'s messages{{#remoteuser}} with {{username}}{{/remoteuser}}"
+                            ><span class="glyphicon glyphicon-envelope"></span></a>
+                          {{fullname}}'s direct messages
+                          {{#remoteuser}}with {{fullname}}{{/remoteuser}}
+                        </h4>
+                        {{#remoteuser}}
+                          {{#subject}}
+                            <a href="/messages/{{username}}" title="Back to @{{username}}'s direct message summary"><span
+                              class="glyphicon glyphicon-arrow-left"></span></a>
+                          {{/subject}}
+                        {{/remoteuser}}
+                        <a href="/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span></a>
+                        <a href="/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span></a>
+                        <a href="/user/{{username}}" title="@{{username}}'s profile"><span class="glyphicon glyphicon-user"></span></a>
+                  </div>
+                </div>
+              {{/subject}}
+            </div>
+          </div>
+          <div class="row">
+            <div id="messages" class="col-md-12">
+            {{#any_threads}}
+              <ul class="list-group media-list">
+                {{#threads}}
+                  {{^remoteuser}}
+                    {{#user}}
+                      <div class="label label-info">
+		        <a href="/messages/{{subject.username}}/{{username}}" title="See more messages to/from @{{username}}">{{fullname}}</a>
+		        <a href="/messages/{{subject.username}}/{{username}}" title="See more messages to/from @{{username}}"><span
+                          class="glyphicon glyphicon-arrow-right"></span></a>
+                      </div>
+                    {{/user}}
+                  {{/remoteuser}}
+                  {{#remoteuser}}
+                    {{#subject}}
+                      <div class="label label-info">
+                        <a href="/messages/{{subject.username}}" title="Back to @{{username}}'s direct message summary"><span
+                          class="glyphicon glyphicon-arrow-left"></span></a>
+                        <a href="/messages/{{subject.username}}" title="Back to @{{username}}'s direct message summary">Back</a>
+                      </div>
+                    {{/subject}}
+                  {{/remoteuser}}
+                  <ul class="list-group media-list">
+                    {{#messages}}
+                      {{> message}}
+                    {{/messages}}
+                  </ul>
+                {{/threads}}
+              </ul>
+            {{/any_threads}}
+
+            {{^threads}}
+              <h4><small>Nothing. Nada. Rien de rien. &#128557;</small></h4>
+            {{/threads}}
+            </div>
+          </div>
+        </div>
+        <div id="sidebar" class="col-md-4">
+          {{> sidebar}}
+        </div>
+      </div>
+      {{> footer}}
+    </div> <!-- /container -->
+  </body>
+</html>
+

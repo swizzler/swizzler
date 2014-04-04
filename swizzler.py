@@ -67,11 +67,13 @@ class SwizzlerApp(object):
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
         user = twister.get_user_info(username)
+        messages = twister.get_user_posts(username,conf['num_messages'])
         result = {
             'is_user':True,
-            'title':u"{0} (@{1}): Profile - Swizzler".format(user['fullname'],user['username']),
+            'title':u"{fullname} (@{username}): Profile - Swizzler".format(**user),
             'subject':user,
-            'messages':twister.get_user_posts(username,conf['num_messages']),
+            'messages':messages,
+            'any_messages':not not messages,
             'local_users':twister.local_user_menu()['users'],
             'info':twister.get_info(),
             #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
@@ -82,11 +84,13 @@ class SwizzlerApp(object):
     def tag(self,tag):
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
+        messages = twister.get_tag_posts(tag)
         result = {
             'is_tag':True,
             'title':u"#{0} - Swizzler".format(tag),
             'subject':{"fullname":tag},
-            'messages':twister.get_tag_posts(tag),
+            'messages':messages,
+            'any_messages':not not messages,
             'local_users':twister.local_user_menu()['users'],
             'info':twister.get_info(),
             #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
@@ -106,19 +110,42 @@ class SwizzlerApp(object):
             'is_home':True,
             'is_mentions':mode=='mentions',
             'is_feed':mode!='mentions',
-            'title':u"{0} (@{1}): Home - Swizzler".format(menu['active']['fullname'],menu['active']['username']),
+            'title':u"{fullname} (@{username}): Home - Swizzler".format(**menu['active']),
             'local_users':menu['users'],
             'info':twister.get_info(),
             'subject':menu['active'],
             'messages':messages,
+            'any_messages':not not messages,
             #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
             'trending':format_trending(twister,conf['num_messages'])
         }
         return stache.render(stache.load_template('standard'),result)
     @cherrypy.expose
+    def messages(self,localusername,remoteusername=None):
+        conf = cherrypy.request.app.config['swizzler']
+        twister = Twister(conf['rpc_url'],format_twist)
+        localuser = twister.get_user_info(localusername)
+        remoteuser = remoteusername and twister.get_user_info(remoteusername) or None
+        threads = remoteusername and twister.get_user_messages(localusername,remoteusername,conf['num_messages']) or twister.get_user_messages(localusername)
+        result = {
+            'title':u"{0} (@{1}): direct messages{2}".format(
+                localuser['fullname'],localuser['username'],
+                remoteuser and u" with {fullname} (@{username}) - Swizzler".format(**remoteuser) or ""),
+            'subject':localuser,
+            'remoteuser':remoteuser,
+            'threads':threads,
+            'any_threads':not not threads,
+            'local_users':twister.local_user_menu()['users'],
+            'info':twister.get_info(),
+            #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
+            'trending':format_trending(twister,conf['num_messages'])
+        }
+        return stache.render(stache.load_template('messages'),result)
+    @cherrypy.expose
     def index(self):
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
+        messages = twister.get_sponsored_posts(conf['num_messages'])
         result = {
             'is_user':True, # i.e. we want to display "bio" and not mentions/DMs/profile buttons
             'title':"Welcome to Swizzler",
@@ -133,7 +160,8 @@ Instead, they enjoy occasional minutes of fame in the form of the sponsored post
 We #Respect their hard earned crypto-graffiti by appreciating them on coffee/spliff/soy-milk/etc. breaks, because that's how we roll yo.
 Start mining today, and all this (AND moral satisfaction) can be yours.""")
             },
-            'messages':twister.get_sponsored_posts(conf['num_messages']),
+            'messages':messages,
+            'any_messages':not not messages,
             #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
             'trending':format_trending(twister,conf['num_messages'])
         }

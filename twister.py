@@ -110,6 +110,28 @@ class Twister:
     def get_user_mentions(self,localusername):
         return [self._format_post_info(p['p']['v']) for p in self.twister.dhtget(localusername,'mention','m')]
     @functioncache(60,ignore_instance=True)
+    def get_user_messages(self,localusername,username=None,num=2):
+        if username:
+            raw = self.twister.getdirectmsgs(localusername,num,[{"username":username}])
+        else:
+            raw = self.twister.getdirectmsgs(localusername,num,self.get_following(localusername))
+        result =[]
+        localuser = self.get_user_info(localusername)
+        for username in raw:
+            user = self.get_user_info(username)
+            messages = []
+            latest_ts = 0
+            for message in raw[username]:
+                if message['time'] > latest_ts:
+                    latest_ts = message['time']
+                message['time'] = timestamp2iso(message['time'])
+                message['user'] = message['fromMe'] and localuser or user
+                message['message'] = self._format_message(message['text'])
+                messages.insert(0,message) # reverse order (newer first)
+            result.append({'user':user,'messages':messages,'latest_ts':latest_ts})
+        return sorted(result,key=lambda thread:thread['latest_ts'],reverse=True)
+                
+    @functioncache(60,ignore_instance=True)
     def get_user_posts(self,username,num=8):
         result = [self._format_post_info(p) for p in self.twister.getposts(num,[{'username':username}])]
         if result:

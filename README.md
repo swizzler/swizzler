@@ -10,17 +10,20 @@ Provide a [twister](twister.net.co) web client that:
 In short: it's a "twister-client constructor kit". Even if what you do doesn't get merged upstream, who says we should all run the same client? Diversity is fun.
 ### Roadmap
 
-The following functionality is missing before Swizzler becomes a full read-only version
+Missing features before Swizzler has full read-only functionality
 
-* Direct messages - currently, there are links to that (look like an envelope) but they're 404 ;)
 * Search box - for hashtags and users by prefix
-* Basic auth - we don't want trojans to read our direct messages, so I guess this is top priority ;)
+* <del>Direct messages</del>
+* <del>Basic auth</del>
 
-I believe this should take a few days.
+We're almost there \o/
 
 #### Future
 
-* *To be defined*
+* [db instead of cache](https://github.com/swizzler/swizzler/wiki/from-cache-to-db)
+* Full [or almost full] functionality of the standard client
+* [additional features](https://github.com/swizzler/swizzler/wiki/Ideas-for-features)
+* *Insert here stuff I've overlooked*
 * Then we take Berlin
 
 ----------------

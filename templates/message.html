@@ -1,7 +1,7 @@
 <li class="list-group-item media">
   {{#user}}
     {{#username}}
-      <a class="pull-left thumbnail" href="/user/{{.}}" title="@{{.}}'s profile">
+      <a class="{{#fromMe}}pull-right{{/fromMe}}{{^fromMe}}pull-left{{/fromMe}} thumbnail" href="/user/{{.}}" title="@{{.}}'s profile">
         <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/genericPerson.png{{/avatar}}" alt="{{fullname}}">
       </a>
     {{/username}}
