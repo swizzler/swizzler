@@ -12,18 +12,21 @@ from ttp import ttp
 class TwistParser(ttp.Parser):
     def format_tag(self, tag, text):
         '''Return formatted HTML for a hashtag.'''
-        return '<a href="/tag/{0}">{1}{2}</a>'.format(
+        return '<a href="{0}/tag/{1}">{2}{3}</a>'.format(
+            cherrypy.request.base+cherrypy.request.script_name,
             ttp.urllib.quote(text.lower().encode('utf-8'),'xmlcharrefreplace'), tag, text)
 
     def format_username(self, at_char, user):
         '''Return formatted HTML for a username.'''
-        return '<a href="/user/{0}">{1}{2}</a>'.format(
-               user, at_char, user.lower())
+        return '<a href="{0}/user/{1}">{2}{3}</a>'.format(
+            cherrypy.request.base+cherrypy.request.script_name,
+            user, at_char, user.lower())
 
     def format_list(self, at_char, user, list_name):
-        '''We don't have lists, so we see it as @user followed /something'''
-        return '<a href="/user/{0}">{1}{2}</a>/{3}'.format(
-               user, at_char, user.lower(), list_name)
+        '''We don't have lists, so we see it as "@user" followed by "/something"'''
+        return '<a href="{0}/user/{1}">{2}{3}</a>/{4}'.format(
+            cherrypy.request.base+cherrypy.request.script_name,
+            cherrypy.request.base+cherrypy.request.script_name, user, at_char, user.lower(), list_name)
 
     def format_url(self, url, text):
         '''Return formatted HTML for a url.'''
@@ -42,10 +45,26 @@ def format_trending(twister,num_messages=8):
 
 ### The Swizzler app
 class SwizzlerApp(object):
+    def _standard_params(self,twister,q,num_items=8):
+        result = {'site_root':cherrypy.request.base+cherrypy.request.script_name}
+        result['here'] = result['site_root']+cherrypy.request.path_info
+        q=(q or '').strip().split(' ')[0] # ignore anything after the first space if any
+        if q.startswith('#'): # user said "#sometag", change to "sometag"
+            q=q[1:]
+        if q and not q.startswith('@'): # Tag. redirect.
+            raise cherrypy.HTTPRedirect(result['site_root']+'/tag/{0}'.format(q))
+        if q:
+            result['user_prefix'] = q
+            result['users'] = twister.get_users_by_partial_name(q[1:],num_items)
+            return result
+        result['trending'] = format_trending(twister,num_items)
+        return result
+          
     @cherrypy.expose
-    def twist(self,username,k):
+    def twist(self,username,k,q=None):
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
+        params = self._standard_params(twister,q,conf['num_messages']) # called as soon as possible, because it might raise a redirect
         twist = twister.get_twist(username,k)
         rts = twister.get_twist_rts(username,k)
         print rts
@@ -59,13 +78,14 @@ class SwizzlerApp(object):
             'any_rts':not not rts,
             'local_users':twister.local_user_menu()['users'],
             'info':twister.get_info(),
-            'trending':format_trending(twister,conf['num_messages'])
         }
+        result.update(params)
         return stache.render(stache.load_template('twist'),result)
     @cherrypy.expose
-    def user(self,username):
+    def user(self,username,q=None):
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
+        params = self._standard_params(twister,q,conf['num_messages']) # called as soon as possible, because it might raise a redirect
         user = twister.get_user_info(username)
         messages = twister.get_user_posts(username,conf['num_messages'])
         result = {
@@ -76,14 +96,14 @@ class SwizzlerApp(object):
             'any_messages':not not messages,
             'local_users':twister.local_user_menu()['users'],
             'info':twister.get_info(),
-            #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
-            'trending':format_trending(twister,conf['num_messages'])
         }
+        result.update(params)
         return stache.render(stache.load_template('standard'),result)
     @cherrypy.expose
-    def tag(self,tag):
+    def tag(self,tag,q=None):
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
+        params = self._standard_params(twister,q,conf['num_messages']) # called as soon as possible, because it might raise a redirect
         messages = twister.get_tag_posts(tag)
         result = {
             'is_tag':True,
@@ -94,13 +114,14 @@ class SwizzlerApp(object):
             'local_users':twister.local_user_menu()['users'],
             'info':twister.get_info(),
             #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
-            'trending':format_trending(twister,conf['num_messages'])
         }
+        result.update(params)
         return stache.render(stache.load_template('standard'),result)
     @cherrypy.expose
-    def home(self,localusername,mode='feed'):
+    def home(self,localusername,mode='feed',q=None):
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
+        params = self._standard_params(twister,q,conf['num_messages']) # called as soon as possible, because it might raise a redirect
         menu = twister.local_user_menu(localusername)
         if mode=='mentions':
             messages = twister.get_user_mentions(localusername)
@@ -116,14 +137,14 @@ class SwizzlerApp(object):
             'subject':menu['active'],
             'messages':messages,
             'any_messages':not not messages,
-            #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
-            'trending':format_trending(twister,conf['num_messages'])
         }
+        result.update(params)
         return stache.render(stache.load_template('standard'),result)
     @cherrypy.expose
-    def messages(self,localusername,remoteusername=None):
+    def messages(self,localusername,remoteusername=None,q=None):
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
+        params = self._standard_params(twister,q,conf['num_messages']) # called as soon as possible, because it might raise a redirect
         localuser = twister.get_user_info(localusername)
         remoteuser = remoteusername and twister.get_user_info(remoteusername) or None
         threads = remoteusername and twister.get_user_messages(localusername,remoteusername,conf['num_messages']) or twister.get_user_messages(localusername)
@@ -138,13 +159,14 @@ class SwizzlerApp(object):
             'local_users':twister.local_user_menu()['users'],
             'info':twister.get_info(),
             #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
-            'trending':format_trending(twister,conf['num_messages'])
         }
+        result.update(params)
         return stache.render(stache.load_template('messages'),result)
     @cherrypy.expose
-    def index(self):
+    def index(self,q=None):
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
+        params = self._standard_params(twister,q,conf['num_messages']) # called as soon as possible, because it might raise a redirect
         messages = twister.get_sponsored_posts(conf['num_messages'])
         result = {
             'is_user':True, # i.e. we want to display "bio" and not mentions/DMs/profile buttons
@@ -163,8 +185,8 @@ Start mining today, and all this (AND moral satisfaction) can be yours.""")
             'messages':messages,
             'any_messages':not not messages,
             #the filter avoids some utf etc. that ttf can't handle (TODO: fix or replace format_twist)
-            'trending':format_trending(twister,conf['num_messages'])
         }
+        result.update(params)
         return stache.render(stache.load_template('standard'),result)
 
 if __name__ == '__main__':

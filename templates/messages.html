@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{title}}</title>
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link href="/assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="/assets/css/swizzler.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{site_root}}/favicon.ico">
+    <link href="{{site_root}}/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{site_root}}/assets/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="{{site_root}}/assets/css/swizzler.css" rel="stylesheet">
   </head>
   <body>
     <div class="container">
@@ -18,12 +18,12 @@
             <div id="header" class="col-md-12 well">
               {{#subject}}
                 <div class="media">
-                  <a class="pull-left thumbnail" href="/user/{{username}}">
+                  <a class="pull-left thumbnail" href="{{site_root}}/user/{{username}}">
                     <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
                   </a>
                   <div class="media-body">
                         <h4 class="media-heading">
-                          <a href="/messages/{{username}}{{#remoteuser}}/{{username}}{{/remoteuser}}"
+                          <a href="{{site_root}}/messages/{{username}}{{#remoteuser}}/{{username}}{{/remoteuser}}"
                              title="@{{username}}'s messages{{#remoteuser}} with {{username}}{{/remoteuser}}"
                             ><span class="glyphicon glyphicon-envelope"></span></a>
                           {{fullname}}'s direct messages
@@ -31,13 +31,13 @@
                         </h4>
                         {{#remoteuser}}
                           {{#subject}}
-                            <a href="/messages/{{username}}" title="Back to @{{username}}'s direct message summary"><span
+                            <a href="{{site_root}}/messages/{{username}}" title="Back to @{{username}}'s direct message summary"><span
                               class="glyphicon glyphicon-arrow-left"></span></a>
                           {{/subject}}
                         {{/remoteuser}}
-                        <a href="/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span></a>
-                        <a href="/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span></a>
-                        <a href="/user/{{username}}" title="@{{username}}'s profile"><span class="glyphicon glyphicon-user"></span></a>
+                        <a href="{{site_root}}/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span></a>
+                        <a href="{{site_root}}/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span></a>
+                        <a href="{{site_root}}/user/{{username}}" title="@{{username}}'s profile"><span class="glyphicon glyphicon-user"></span></a>
                   </div>
                 </div>
               {{/subject}}
@@ -51,8 +51,8 @@
                   {{^remoteuser}}
                     {{#user}}
                       <div class="label label-info">
-		        <a href="/messages/{{subject.username}}/{{username}}" title="See more messages to/from @{{username}}">{{fullname}}</a>
-		        <a href="/messages/{{subject.username}}/{{username}}" title="See more messages to/from @{{username}}"><span
+		        <a href="{{site_root}}/messages/{{subject.username}}/{{username}}" title="See more messages to/from @{{username}}">{{fullname}}</a>
+		        <a href="{{site_root}}/messages/{{subject.username}}/{{username}}" title="See more messages to/from @{{username}}"><span
                           class="glyphicon glyphicon-arrow-right"></span></a>
                       </div>
                     {{/user}}
@@ -60,9 +60,9 @@
                   {{#remoteuser}}
                     {{#subject}}
                       <div class="label label-info">
-                        <a href="/messages/{{subject.username}}" title="Back to @{{username}}'s direct message summary"><span
+                        <a href="{{site_root}}/messages/{{subject.username}}" title="Back to @{{username}}'s direct message summary"><span
                           class="glyphicon glyphicon-arrow-left"></span></a>
-                        <a href="/messages/{{subject.username}}" title="Back to @{{username}}'s direct message summary">Back</a>
+                        <a href="{{site_root}}/messages/{{subject.username}}" title="Back to @{{username}}'s direct message summary">Back</a>
                       </div>
                     {{/subject}}
                   {{/remoteuser}}

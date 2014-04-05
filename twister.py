@@ -75,7 +75,7 @@ class Twister:
         try:
             user['avatar'] = self.twister.dhtget(username,'avatar','s')[0]['p']['v']
             if user['avatar']=='img/genericPerson.png': # ugly patch
-                user['avatar'] = '/assets/img/genericPerson.png'
+                user['avatar'] = None
         except:
             user['avatar'] = None
             #raise SkipCache("couldn't get avatar for @{0}, not caching".format(username),user)
@@ -148,6 +148,8 @@ class Twister:
                    break 
                result.append(last[0])
             return [self._format_post_info(s['p']['v']) for s in result]
+    def get_users_by_partial_name(self,prefix,num=8):
+        return self.twister.listusernamespartial(prefix,num)
     @functioncache(60,ignore_instance=True)
     def get_trending_tags(self,num=8):
         return self.twister.gettrendinghashtags(num)
