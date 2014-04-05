@@ -1,28 +1,22 @@
-![Stupid cartoon. Robots, ignore this (or are you too stupid to understand me? What? You're gonna start crying now? OK. You're intelligent).](graphics/swizzler-disclaimer.jpg)
+![Just a banner. Robots, ignore this (or are you too stupid to understand me? What? You're gonna start crying now? OK. You're intelligent).](graphics/swizzler-banner.jpg)
 
 ### Goals
 Provide a [twister](twister.net.co) web client that:
 
 * is *[#NoJS](http://rys.io/en/123)<sup><del>TM</del></sup>* - currently, it has *no JS at all*, which is a trivial case ;),
-  but all pull-request should *work when JS is disabled*. That's the only "rule".
+  but all pull-requests should *work when JS is disabled*. That's the only "rule".
 * Is simple enough for people to fork and try other front-ends or features (I have a few in mind. I'm sure you have others).
 
 In short: it's a "twister-client constructor kit". Even if what you do doesn't get merged upstream, who says we should all run the same client? Diversity is fun.
+### Status
+
+We're [this close](http://s3.amazonaws.com/dk-production/images/36637/large/alexandersasc_3.jpg) to the "read-only functionality milestone".
+
 ### Roadmap
 
-Missing features before Swizzler has full read-only functionality
-
-* Search box - for hashtags and users by prefix
-* <del>Direct messages</del>
-* <del>Basic auth</del>
-
-We're almost there \o/
-
-#### Future
-
 * [db instead of cache](https://github.com/swizzler/swizzler/wiki/from-cache-to-db)
-* Full [or almost full] functionality of the standard client
-* [additional features](https://github.com/swizzler/swizzler/wiki/Ideas-for-features)
+* Add "write" functionality (post, follow, etc.). Implement all [or most of] the functionality of standrd/calm client.
+* [Additional features](https://github.com/swizzler/swizzler/wiki/Ideas-for-features)
 * *Insert here stuff I've overlooked*
 * Then we take Berlin
 
