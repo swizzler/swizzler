@@ -18,7 +18,7 @@ class Twister:
         db.shelve.sync()
     def _format_reply(self,r):
         "gracefully fails if reply is empty"
-        return r and {"user":self.get_user_info(r['n']),'k':r['k']} or {}
+        return r and {"user":self.get_user_info(r['n']),'username':r['n'],'k':r['k']} or {}
     def _format_post_info(self,p):
         result = {
             "height":p['userpost']['height'],
@@ -28,15 +28,18 @@ class Twister:
         if p['userpost'].has_key('rt'):
             result.update({
                 "message":self._format_message(p['userpost']['rt']['msg']),
-                "user":self.get_user_info(p['userpost']['rt']['n']),
+                "username":p['userpost']['rt']['n'],
+                #"user":self.get_user_info(p['userpost']['rt']['n']), ### too heavy. we do it in an iframe
                 "k":p['userpost']['rt']['k'],
-                "rt_user":self.get_user_info(p['userpost']['n']),
+                "rt_username":p['userpost']['n'],
+                #"rt_user":self.get_user_info(p['userpost']['n']), ### too heavy. we do it in an iframe
                 "reply":self._format_reply(p['userpost']['rt'].get('reply',{})),
             })
         else:
             result.update({
                 "message":self._format_message(p['userpost']['msg']),
-                "user":self.get_user_info(p['userpost']['n']),
+                "username":p['userpost']['n'],
+                #"user":self.get_user_info(p['userpost']['n']), ### too heavy. we do it in an iframe
                 "k":p['userpost']['k'],
                 "reply":self._format_reply(p['userpost'].get('reply',{})),
             })
@@ -47,6 +50,7 @@ class Twister:
         if p:
             return self._format_post_info(p[0]['p']['v'])
         raise SkipCache("Twist not found @{0}/{1}".format(username,k),{
+            "username":"",
             "user":self.get_user_info('nobody'),
             "k":0, # maybe something needs this
             "lastk":0, # or this
@@ -125,10 +129,11 @@ class Twister:
                 if message['time'] > latest_ts:
                     latest_ts = message['time']
                 message['time'] = timestamp2iso(message['time'])
+                message['username'] = message['fromMe'] and localusername or username
                 message['user'] = message['fromMe'] and localuser or user
                 message['message'] = self._format_message(message['text'])
                 messages.insert(0,message) # reverse order (newer first)
-            result.append({'user':user,'messages':messages,'latest_ts':latest_ts})
+            result.append({'username':username,'user':user,'messages':messages,'latest_ts':latest_ts})
         return sorted(result,key=lambda thread:thread['latest_ts'],reverse=True)
                 
     @functioncache(60,ignore_instance=True)

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html language="{{lang}}">
+<html language="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,22 +22,18 @@
                     <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
                   </a>
                   <div class="media-body">
-                        <h4 class="media-heading">
-                          <a href="{{site_root}}/messages/{{username}}{{#remoteuser}}/{{username}}{{/remoteuser}}"
+                        <h3 class="media-heading">
+                          <a class="label label-primary" href="{{site_root}}/messages/{{username}}{{#remoteuser}}/{{username}}{{/remoteuser}}"
                              title="@{{username}}'s messages{{#remoteuser}} with {{username}}{{/remoteuser}}"
-                            ><span class="glyphicon glyphicon-envelope"></span></a>
+                            ><span class="glyphicon glyphicon-envelope"></span>
                           {{fullname}}'s direct messages
-                          {{#remoteuser}}with {{fullname}}{{/remoteuser}}
+                          {{#remoteuser}}with {{fullname}}{{/remoteuser}}</a>
+                        </h3>
+                        <h4>
+                          <a class="label label-primary" href="{{site_root}}/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span> Home</a>
+                          <a class="label label-primary" href="{{site_root}}/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span> Mentions</a>
+                          <a class="label label-info" href="{{site_root}}/user/{{username}}" title="@{{username}}'s profile"><span class="glyphicon glyphicon-user"></span> Profile</a>
                         </h4>
-                        {{#remoteuser}}
-                          {{#subject}}
-                            <a href="{{site_root}}/messages/{{username}}" title="Back to @{{username}}'s direct message summary"><span
-                              class="glyphicon glyphicon-arrow-left"></span></a>
-                          {{/subject}}
-                        {{/remoteuser}}
-                        <a href="{{site_root}}/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span></a>
-                        <a href="{{site_root}}/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span></a>
-                        <a href="{{site_root}}/user/{{username}}" title="@{{username}}'s profile"><span class="glyphicon glyphicon-user"></span></a>
                   </div>
                 </div>
               {{/subject}}
@@ -49,21 +45,13 @@
               <ul class="list-group media-list">
                 {{#threads}}
                   {{^remoteuser}}
-                    {{#user}}
-                      <div class="label label-info">
-		        <a href="{{site_root}}/messages/{{subject.username}}/{{username}}" title="See more messages to/from @{{username}}">{{fullname}}</a>
-		        <a href="{{site_root}}/messages/{{subject.username}}/{{username}}" title="See more messages to/from @{{username}}"><span
-                          class="glyphicon glyphicon-arrow-right"></span></a>
-                      </div>
-                    {{/user}}
+		      <a class="label label-primary" href="{{site_root}}/messages/{{subject.username}}/{{username}}"
+                        title="See more messages to/from @{{username}}">@{{username}} <span class="glyphicon glyphicon-arrow-right"></span></a>
                   {{/remoteuser}}
                   {{#remoteuser}}
                     {{#subject}}
-                      <div class="label label-info">
-                        <a href="{{site_root}}/messages/{{subject.username}}" title="Back to @{{username}}'s direct message summary"><span
-                          class="glyphicon glyphicon-arrow-left"></span></a>
-                        <a href="{{site_root}}/messages/{{subject.username}}" title="Back to @{{username}}'s direct message summary">Back</a>
-                      </div>
+                      <a class="label label-primary" href="{{site_root}}/messages/{{subject.username}}"
+                        title="Back to @{{username}}'s direct message summary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
                     {{/subject}}
                   {{/remoteuser}}
                   <ul class="list-group media-list">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html language="{{lang}}">
+<html language="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,34 +24,40 @@
                   <div class="media-body">
                     {{#is_home}}
                       {{#username}}
-                        <h4 class="media-heading">
+                        <h3 class="media-heading">
                           {{#is_feed}}
-                            <a href="{{site_root}}/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span></a> {{fullname}}
+                            <a class="label label-primary" href="{{site_root}}/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span>
+                              {{fullname}}'s home</a>
                           {{/is_feed}}
                           {{#is_mentions}}
-                            <a href="{{site_root}}/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span></a> {{fullname}}
+                            <a class="label label-primary" href="{{site_root}}/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span>
+                              Mentions of {{fullname}}</a>
                           {{/is_mentions}}
                           {{#is_messages}}
-                            <a href="{{site_root}}/messages/{{username}}" title="direct messages to/from @{{username}}"><span class="glyphicon glyphicon-envelope"></span></a> {{fullname}}
+                            <a class="label label-primary" href="{{site_root}}/messages/{{username}}" title="direct messages to/from @{{username}}"><span class="glyphicon glyphicon-envelope"></span>
+                              {{fullname}}</a>
                           {{/is_messages}}
+                        </h3>
+                        <h4>
+                          {{^is_feed}}
+                            <a class="label label-primary" href="{{site_root}}/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span>Home</a>
+                          {{/is_feed}}
+                          {{^is_mentions}}
+                            <a class="label label-primary" href="{{site_root}}/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span>Mentions</a>
+                          {{/is_mentions}}
+                          {{^is_messages}}
+                            <a class="label label-primary" href="{{site_root}}/messages/{{username}}" title="direct messages from/to @{{username}}"><span class="glyphicon glyphicon-envelope"></span>Messages</a>
+                          {{/is_messages}}
+                          <a class="label label-info" href="{{site_root}}{{#username}}/user/{{.}}{{/username}}" title="@{{username}}'s profile"><span class="glyphicon glyphicon-user"></span>Profile</a>
                         </h4>
-                        {{^is_feed}}
-                          <a href="{{site_root}}/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span></a>
-                        {{/is_feed}}
-                        {{^is_mentions}}
-                          <a href="{{site_root}}/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span></a>
-                        {{/is_mentions}}
-                        {{^is_messages}}
-                          <a href="{{site_root}}/messages/{{username}}" title="direct messages from/to @{{username}}"><span class="glyphicon glyphicon-envelope"></span></a>
-                        {{/is_messages}}
-                        <a href="{{site_root}}/user/{{username}}" title="@{{username}}'s profile"><span class="glyphicon glyphicon-user"></span></a>
                       {{/username}}
                     {{/is_home}}
                     {{#is_user}}
                       <h4 class="media-heading">
                         {{#location}}<span class="pull-right small">{{.}}</span>{{/location}}
-                        {{fullname}}
-                        {{#url}}<small><a href="{{.}}">{{.}}</a></small>{{/url}}</h4>
+                        <a class="label label-primary" href="{{site_root}}/user/{{username}}"><span class="glyphicon glyphicon-user"></span>
+                          {{fullname}}</a>
+                        {{#url}}<small><a target="_blank" href="{{.}}">{{.}}</a></small>{{/url}}</h4>
                       {{{bio}}}
                     {{/is_user}}
                     {{#is_tag}}

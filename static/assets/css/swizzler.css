@@ -1,5 +1,6 @@
 body {padding-top:8px; background:#eef url(/assets/img/swizzler-128.png) no-repeat fixed right bottom}
 .avatar {max-width:64px; max-height:64px}
 .avatars32 .avatar {max-width:32px; max-height:32px}
+.avatars42 .avatar {max-width:44px; max-height:44px}
 .panel, .list-group-item { background-color: rgba(255,255,255,0.33) } /* I should be doing this by customizing bootstrap. Later :) */
-#footer {z-index:115;position:fixed;right:123px;bottom:0}
+#footer {z-index:115;position:fixed;right:96px;bottom:8px}

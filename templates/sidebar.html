@@ -1,9 +1,9 @@
-<div class="panel panel-primary">
+<div id="localusers" class="panel panel-primary">
   <div class="panel-heading">
     {{#info}}
       <div class="pull-right badge">Peers: {{dht_nodes}}/{{dht_global_nodes}}</div>
     {{/info}}
-    <h3 class="panel-title"><span class="glyphicon glyphicon-home"></span> Local users</h3>
+    <h3 class="panel-title"><span class="glyphicon glyphicon-th-list"></span> Local users</h3>
   </div>
   <ul class="panel-body list-group media-list">
     {{#local_users}}
@@ -18,17 +18,15 @@
                  href="{{site_root}}/{{#username}}home/{{.}}{{/username}}">{{/active}}{{fullname}}{{^active}}</a>
             {{/active}}
           </h5>
-          {{^active}}
             {{#username}}
-              <a href="{{site_root}}/home/{{.}}" title="@{{.}}'s home"><span class="glyphicon glyphicon-home"></span></a>
-              <a href="{{site_root}}/home/{{.}}/mentions" title="mentions of @{{.}}"><span class="glyphicon glyphicon-bell"></span></a>
-              <a href="{{site_root}}/messages/{{.}}" title="direct messages from/to @{{.}}"><span class="glyphicon glyphicon-envelope"></span></a>
-              <a href="{{site_root}}/user/{{.}}" title="@{{.}}'s profile"><span class="glyphicon glyphicon-user"></span></a>
+              <a class="label label-primary" href="{{site_root}}/home/{{.}}" title="@{{.}}'s home"><span class="glyphicon glyphicon-home"></span></a>
+              <a class="label label-primary" href="{{site_root}}/home/{{.}}/mentions" title="mentions of @{{.}}"><span class="glyphicon glyphicon-bell"></span></a>
+              <a class="label label-primary" href="{{site_root}}/messages/{{.}}" title="direct messages from/to @{{.}}"><span class="glyphicon glyphicon-envelope"></span></a>
+              <a class="label label-info" href="{{site_root}}/user/{{.}}" title="@{{.}}'s profile"><span class="glyphicon glyphicon-user"></span></a>
             {{/username}}
             {{^username}}
               (view sponsored posts)
             {{/username}}
-          {{/active}}
         </div>
       </li>
     {{/local_users}}
@@ -37,27 +35,16 @@
 
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <form method=get action="{{here}}" class="inline-form" role="search">
+    <form target="searchresult" tag="searchresult" method=get action="{{site_root}}/search" class="inline-form" role="search">
       <div class="form-group">
         <label for="#search"><span class="glyphicon glyphicon-search"></span> Search for tag or partial username</label>
         <input id="q" name="q" type="text" class="form-control" placeholder="#twister or @twi"{{#user_prefix}} value="{{.}}"{{/user_prefix}}>
       </div>
     </form>
-</div>
-  <div class="panel-body">
-    {{#user_prefix}}
-      <div class="label label-primary"><span class="glyphicon glyphicon-tags"></span> User prefix search: <strong><em>{{user_prefix}}</em></strong></div>
-      <ul class="list-group">
-        {{#users}}<li class="list-group-item"><a href="{{site_root}}/user/{{.}}" title="@{{.}}'s profile">@{{.}}</a></li>{{/users}}
-        {{^users}}<li class="list-group-item"><h3><small>Nothing. Nada. Rien de rien. &#128557;</small></h3>{{/users}}
-      </ul>
-    {{/user_prefix}}
-    {{^user_prefix}}
-      <div class="label label-primary"><span class="glyphicon glyphicon-tags"></span> Trending tags</div>
-      <ul class="list-group">
-        {{#trending}}<li class="list-group-item">{{{.}}}</li>{{/trending}}
-        {{^trending}}<li class="list-group-item"><h3>Can't find trending tags. <small>Nothing. Nada. Rien de rien. &#128557;</small></h3>{{/trending}}
-      </ul>
-    {{/user_prefix}}
   </div>
 </div>
+    <iframe name="searchresult" class="thumbnail media-object {{#fromMe}}pull-right{{/fromMe}}{{^fromMe}}pull-left{{/fromMe}}"
+      style="width:100%; border:none; padding:0; background:none; overflow:hidden"
+      width=100 height=2645 seamless=seamless
+      src="{{site_root}}/search"></iframe>
+  </div>

@@ -1,45 +1,37 @@
 <li class="list-group-item media">
-  {{#user}}
+  <iframe class="thumbnail media-object {{#fromMe}}pull-right{{/fromMe}}{{^fromMe}}pull-left{{/fromMe}}"
+    style="border:none; padding:0; background:none; overflow:hidden"
+    width=33% height={{#style_large}}96{{/style_large}}{{^style_large}}72{{/style_large}} seamless=seamless
+    src="{{site_root}}/user_embed/{{username}}{{^username}}nobody{{/username}}{{#style_large}}/large{{/style_large}}{{#fromMe}}/from_me{{/fromMe}}"></iframe>
+  <div class="media-body">
     {{#username}}
-      <a class="{{#fromMe}}pull-right{{/fromMe}}{{^fromMe}}pull-left{{/fromMe}} thumbnail" href="{{site_root}}/user/{{.}}" title="@{{.}}'s profile">
-        <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/genericPerson.png{{/avatar}}" alt="{{fullname}}">
-      </a>
+      <h5 class="media-heading">
+        {{^threads}}
+          <span class="pull-right small">
+            {{^is_sponsored}}<a title="View twist details" href="{{site_root}}/twist/{{.}}/{{k}}">{{/is_sponsored}}{{time}}{{^is_sponsored}}</a>{{/is_sponsored}}
+          </span>
+        {{/threads}}
+        {{#rt_username}}
+          <small>
+            <a href="{{site_root}}/user/{{.}}" title="@{{.}}'s profile">@{{.}}</a>
+            <span class="glyphicon glyphicon-retweet"></span>
+          </small>
+        {{/rt_username}}
+        <a href="{{site_root}}/user/{{username}}" title="@{{username}}'s profile"><strong>@{{username}}</strong></a>
+        {{^is_twist}}{{#reply}}
+          <small>
+            <span class="glyphicon glyphicon-share-alt"></span>
+            <a title="Re: @{{username}}'s twist" href="{{site_root}}/twist/{{username}}/{{k}}">@{{username}}</a>
+          </small>
+        {{/reply}}{{/is_twist}}
+      </h5>
     {{/username}}
     {{^username}}
-      <a class="pull-left thumbnail" href="#">
-        <img class="media-object avatar" src="{{site_root}}/assets/img/twister-64.jpg" alt="{{fullname}}">
-      </a>
+      <h5 class="media-heading">
+        <span class="pull-right small">{{time}}</span>
+        <a href="{{site_root}}/">@{{username}}</a>
+      </h5>
     {{/username}}
-  {{/user}}
-  <div class="media-body">
-    {{#user}}
-      {{#username}}
-        <h5 class="media-heading">
-          <span class="pull-right small">
-            <a title="View twist details" href="{{site_root}}/twist/{{.}}/{{k}}">{{time}}</a>
-          </span>
-          {{#rt_user}}
-            <small>
-              <a href="{{site_root}}/user/{{username}}" title="@{{username}}'s profile">{{fullname}}</a>
-              <span class="glyphicon glyphicon-retweet"></span>
-            </small>
-          {{/rt_user}}
-          <a href="{{site_root}}/user/{{.}}" title="@{{.}}'s profile"><strong>{{fullname}}</strong></a>
-          {{^is_twist}}{{#reply}}
-            <small>
-              <span class="glyphicon glyphicon-share-alt"></span>
-              {{#user}}<a title="Re: @{{username}}'s twist" href="{{site_root}}/twist/{{username}}/{{k}}">{{fullname}}</a>{{/user}}
-            </small>
-          {{/reply}}{{/is_twist}}
-        </h5>
-      {{/username}}
-      {{^username}}
-        <h5 class="media-heading">
-          <span class="pull-right small">{{time}}</span>
-          <a href="{{site_root}}/">{{fullname}}</a>
-        </h5>
-      {{/username}}
-    {{/user}}
     {{{message}}}
   </div>
 </li>

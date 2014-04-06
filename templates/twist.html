@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html language="{{lang}}">
+<html language="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -28,14 +28,12 @@
                 {{#any_rts}}
                   <div class="avatars32">
                     <h5 class="pull-left"><span class="glyphicon glyphicon-retweet"></span> Retwists:&nbsp;</h5>{{! I know it's ugly. I suck at CSS !}}
-                    {{#rts}}{{#rt_user}}
-                        <div class="thumbnail pull-left">
-                          <a href="{{site_root}}/user/{{username}}" title="Retwisted by {{fullname}} (@{{username}})">
-                            <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/genericPerson.png{{/avatar}}"
-                                 alt="Retwisted by {{fullname}} (@{{username}})">
-                          </a>
-                        </div>
-                    {{/rt_user}}{{/rts}}
+                    {{#rts}}
+                      <iframe class="thumbnail pull-left"
+                        style="border:none; padding:0; background:none; overflow:hidden"
+                        width=84 height=72 seamless=seamless
+                        src="{{site_root}}/user_embed/{{rt_username}}/rt"></iframe>
+                    {{/rts}}
                   </div>
                 {{/any_rts}}
               {{/twist}}
