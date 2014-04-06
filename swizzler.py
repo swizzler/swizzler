@@ -104,7 +104,6 @@ class SwizzlerApp(object):
         if username=='nobody': username='' # to enable /nobody/large
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
-        user = twister.get_user_info(username)
         result = {
             'title':'@{0} - Swizzler'.format(username),
             'site_root':cherrypy.request.base+cherrypy.request.script_name,

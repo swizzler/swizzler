@@ -51,7 +51,7 @@ class Twister:
             return self._format_post_info(p[0]['p']['v'])
         raise SkipCache("Twist not found @{0}/{1}".format(username,k),{
             "username":"",
-            "user":self.get_user_info('nobody'),
+            #"user":self.get_user_info('nobody'),
             "k":0, # maybe something needs this
             "lastk":0, # or this
             "message":"Twist not found (maybe it's private?) &#128557;",
