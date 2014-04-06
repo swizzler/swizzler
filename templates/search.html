@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html language="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <link rel="icon" type="image/x-icon" href="{{site_root}}/favicon.ico">
+    <link href="{{site_root}}/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{site_root}}/assets/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="{{site_root}}/assets/css/swizzler.css" rel="stylesheet">
+    <style type="text/css">
+        body {background:rgba(255,255,255,0.33);padding-top:8px}
+        input.form-control[readonly] {cursor: pointer}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      {{#user_prefix}}
+        <div class="label label-info"><span class="glyphicon glyphicon-tags"></span> Users starting with: <strong><em>{{user_prefix}}</em></strong></div>
+        <ul class="media-list">
+          {{#users}}
+            <li class="media">
+              <iframe class="thumbnail media-object pull-right"
+                style="border:none; padding:0; background:none; overflow:hidden"
+                width=66% height=105 seamless=seamless
+                src="{{site_root}}/user_embed/{{.}}{{#is_large}}/large{{/is_large}}{{#fromMe}}/from_me{{/fromMe}}"></iframe>
+              <div class="media-body">
+                <a target="_top" href="{{site_root}}/user/{{.}}" title="@{{.}}'s profile"><small>@{{.}}</small></a>
+              </div>
+            </li>
+          {{/users}}
+          {{^users}}<li class="list-group-item"><h3><small>Nothing. Nada. Rien de rien. &#128557;</small></h3>{{/users}}
+        </ul>
+      {{/user_prefix}}
+      {{^user_prefix}}
+        <div class="label label-info"><span class="glyphicon glyphicon-tags"></span> Trending tags</div>
+        <ul class="list-group">
+          {{#trending}}<li class="list-group-item">{{{.}}}</li>{{/trending}}
+          {{^trending}}<li class="list-group-item"><h3>Can't find trending tags. <small>Nothing. Nada. Rien de rien. &#128557;</small></h3>{{/trending}}
+        </ul>
+      {{/user_prefix}}
+    </div>
+      
+    </div> <!-- /container -->
+  </body>
+</html>
+

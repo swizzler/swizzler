@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html language="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <link rel="icon" type="image/x-icon" href="{{site_root}}/favicon.ico">
+    <link href="{{site_root}}/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{site_root}}/assets/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="{{site_root}}/assets/css/swizzler.css" rel="stylesheet">
+    <style type="text/css">
+        body {background:rgba(255,255,255,0.33);padding-top:8px}
+        input.form-control[readonly] {cursor: pointer}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      {{#user}}
+        <div class="media{{^style_large}} avatars42{{/style_large}}">
+          {{#username}}
+            <a class="{{#style_from_me}}pull-left{{/style_from_me}}{{^style_from_me}}pull-right{{/style_from_me}} thumbnail" target="_top" href="{{site_root}}/user/{{.}}" title="{{fullname}} (@{{username}})'s profile">
+              <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/genericPerson.png{{/avatar}}" alt="{{fullname}}">
+            </a>
+          {{/username}}
+          {{^username}}
+            <a class="pull-left thumbnail" href="#">
+              <img class="media-object avatar" src="{{site_root}}/assets/img/twister-64.jpg" alt="Nobody">
+            </a>
+          {{/username}}
+          {{^style_rt}}
+            <div class="media-body">
+              {{#username}}
+                <a class="label label-info" target="_top" href="{{site_root}}/user/{{.}}" title="{{fullname}} (@{{username}})'s profile">{{fullname}}</a>
+                <input class="form-control" readonly=readonly value="@{{username}}" onclick="this.select()">
+              {{/username}}
+              {{^username}}
+                <a href="#">Nobody</a>
+              {{/username}}
+            </div>
+          {{/style_rt}}
+        </div>
+      {{/user}}
+      
+    </div> <!-- /container -->
+  </body>
+</html>
+
