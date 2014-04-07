@@ -14,60 +14,68 @@
     <div class="container">
       <div class="row">
         <div id="main" class="col-md-8">
-          <div class="row">
-            <div id="header" class="col-md-12 well">
-              {{#subject}}
-                <div class="media">
+          {{#subject}}
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">
+                    <span class="glyphicon glyphicon-envelope"></span> Direct messages: {{fullname}}
+                    {{#remoteuser}}<span class="glyphicon glyphicon-transfer"></span> {{fullname}}{{/remoteuser}}
+                </h3>
+              </div>
+              <div class="panel-body">
+                <div class="media avatars32">
                   <a class="pull-left thumbnail" href="{{site_root}}/user/{{username}}">
-                    <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
+                    <img class="media-object avatar" src="{{avatar}}" alt="{{fullname}}">
                   </a>
                   <div class="media-body">
-                        <h3 class="media-heading">
-                          <a class="label label-primary" href="{{site_root}}/messages/{{username}}{{#remoteuser}}/{{username}}{{/remoteuser}}"
-                             title="@{{username}}'s messages{{#remoteuser}} with {{username}}{{/remoteuser}}"
-                            ><span class="glyphicon glyphicon-envelope"></span>
-                          {{fullname}}'s direct messages
-                          {{#remoteuser}}with {{fullname}}{{/remoteuser}}</a>
-                        </h3>
-                        <h4>
-                          <a class="label label-primary" href="{{site_root}}/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span> Home</a>
-                          <a class="label label-primary" href="{{site_root}}/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span> Mentions</a>
-                          <a class="label label-info" href="{{site_root}}/user/{{username}}" title="@{{username}}'s profile"><span class="glyphicon glyphicon-user"></span> Profile</a>
-                        </h4>
+                    <ul class="nav nav-pills">
+                      <li{{#is_feed}} class="active"{{/is_feed}}>
+                        <a href="{{site_root}}/home/{{username}}"
+                          title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span>Home</a>
+                      </li>
+                      <li{{#is_mentions}} class="active"{{/is_mentions}}>
+                        <a href="{{site_root}}/home/{{username}}/mentions" 
+                          title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span>Mentions</a>
+                      </li>
+                      <li {{^remoteuser}}class="active"{{/remoteuser}}>
+                        <a href="{{site_root}}/messages/{{username}}"
+                          title="direct messages from/to @{{username}}"><span class="glyphicon glyphicon-envelope"></span>Messages</a>
+                      </li>
+                    </ul>
                   </div>
                 </div>
-              {{/subject}}
+              </div>
             </div>
-          </div>
+          {{/subject}}
           <div class="row">
             <div id="messages" class="col-md-12">
-            {{#any_threads}}
-              <ul class="list-group media-list">
-                {{#threads}}
-                  {{^remoteuser}}
-		      <a class="label label-primary" href="{{site_root}}/messages/{{subject.username}}/{{username}}"
-                        title="See more messages to/from @{{username}}">@{{username}} <span class="glyphicon glyphicon-arrow-right"></span></a>
-                  {{/remoteuser}}
-                  {{#remoteuser}}
-                    {{#subject}}
-                      <a class="label label-primary" href="{{site_root}}/messages/{{subject.username}}"
-                        title="Back to @{{username}}'s direct message summary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
-                    {{/subject}}
-                  {{/remoteuser}}
-                  <ul class="list-group media-list">
-                    {{#messages}}
-                      {{> message}}
-                    {{/messages}}
-                  </ul>
-                {{/threads}}
-              </ul>
-            {{/any_threads}}
-
-            {{^threads}}
-              <h4><small>Nothing. Nada. Rien de rien. &#128557;</small></h4>
-            {{/threads}}
+              {{#any_threads}}
+                <ul class="list-group media-list">
+                  {{#threads}}
+                    {{^remoteuser}}
+      		      <a class="label label-primary" href="{{site_root}}/messages/{{subject.username}}/{{username}}"
+                          title="See more messages to/from @{{username}}">@{{username}} <span class="glyphicon glyphicon-arrow-right"></span></a>
+                    {{/remoteuser}}
+                    {{#remoteuser}}
+                      {{#subject}}
+                        <a class="label label-primary" href="{{site_root}}/messages/{{subject.username}}"
+                          title="Back to @{{username}}'s direct message summary"><span class="glyphicon glyphicon-arrow-left"></span> Back</a>
+                      {{/subject}}
+                    {{/remoteuser}}
+                    <ul class="list-group media-list">
+                      {{#messages}}
+                        {{> message}}
+                      {{/messages}}
+                    </ul>
+                  {{/threads}}
+                </ul>
+              {{/any_threads}}
+      
+              {{^threads}}
+                <h4><small>Nothing. Nada. Rien de rien. &#128557;</small></h4>
+              {{/threads}}
             </div>
-          </div>
+          </div><!-- /.row -->
         </div>
         <div id="sidebar" class="col-md-4">
           {{> sidebar}}

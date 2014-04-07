@@ -56,7 +56,7 @@ class SwizzlerApp(object):
             result['user_prefix'] = userprefix
             result['users'] = twister.get_users_by_partial_name(userprefix[1:],conf['num_messages'])
         else:
-            result['trending'] = format_trending(twister,conf['num_messages'])
+            result['trending'] = format_trending(twister,3*conf['num_messages']) # no avatar = about 1/3 height :)
         return stache.render(stache.load_template('search'),result)
 
     @cherrypy.expose

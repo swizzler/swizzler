@@ -35,16 +35,16 @@
 
     <form method=get action="{{site_root}}/tag" class="form-horizontal" role="search">
       <div class="form-group">
-        <label class="col-xs-4 text-right" for="#tag">Tag <span class="glyphicon glyphicon-tag"></span></label>
-        <div class="col-xs-8">
+        <label class="col-sm-4" for="#tag"><span class="badge pull-right">Tag <span class="glyphicon glyphicon-tag"></span></span></label>
+        <div class="col-sm-8">
           <input id="tag" name="tag" type="text" class="form-control input-sm" placeholder="#twister"{{#user_prefix}} value="{{.}}"{{/user_prefix}}>
         </div>
       </div>
     </form>
     <form target="searchresult" tag="searchresult" method=get action="{{site_root}}/search_embed" class="form-horizontal" role="search">
       <div class="form-group">
-        <label class="col-xs-4 text-right" for="#userprefix">Usernam... <span class="glyphicon glyphicon-user"></span></label>
-        <div class="col-xs-8">
+        <label class="col-sm-4" for="#userprefix"><span class="badge pull-right">Userna... <span class="glyphicon glyphicon-user"></span></span></label>
+        <div class="col-sm-8">
           <input id="userprefix" name="userprefix" type="text" class="form-control input-sm" placeholder="@twi"{{#user_prefix}} value="{{.}}"{{/user_prefix}}>
         </div>
       </div>
