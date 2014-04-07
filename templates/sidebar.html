@@ -35,7 +35,17 @@
 
     <form method=get action="{{site_root}}/tag" class="form-horizontal" role="search">
       <div class="form-group">
-        <label class="col-sm-4" for="#tag"><span class="badge pull-right">Tag <span class="glyphicon glyphicon-tag"></span></span></label>
+        <label class="col-sm-4" for="#tag">
+          <span class="badge pull-right">
+            <abbr style="color:#fbe0a5"
+              title="Browse to a #hashtag's page:
+Main area will show twists mentioning it.
+[An empty field will show sponsored posts]">
+              <span class="glyphicon glyphicon-arrow-left"></span>
+            </abbr>
+            Tag <span class="glyphicon glyphicon-tag"></span>
+          </span>
+        </label>
         <div class="col-sm-8">
           <input id="tag" name="tag" type="text" class="form-control input-sm" placeholder="#twister"{{#user_prefix}} value="{{.}}"{{/user_prefix}}>
         </div>
@@ -43,7 +53,18 @@
     </form>
     <form target="searchresult" tag="searchresult" method=get action="{{site_root}}/search_embed" class="form-horizontal" role="search">
       <div class="form-group">
-        <label class="col-sm-4" for="#userprefix"><span class="badge pull-right">Userna... <span class="glyphicon glyphicon-user"></span></span></label>
+        <label class="col-sm-4" for="#userprefix">
+          <span class="badge pull-right">
+            <abbr style="color:#fbe0a5"
+              title='Search for "users starting with ..."
+&#120324;&#120310;&#120321;&#120309;&#120316;&#120322;&#120321; leaving the current page.
+Results will appear below.
+[Empty field to show trending tags again]'>
+              <span class="glyphicon glyphicon-arrow-down"></span>
+            </abbr>
+            Userna... <span class="glyphicon glyphicon-user"></span>
+          </span>
+        </label>
         <div class="col-sm-8">
           <input id="userprefix" name="userprefix" type="text" class="form-control input-sm" placeholder="@twi"{{#user_prefix}} value="{{.}}"{{/user_prefix}}>
         </div>

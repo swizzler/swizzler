@@ -31,15 +31,15 @@
                     <ul class="nav nav-pills">
                       <li{{#is_feed}} class="active"{{/is_feed}}>
                         <a href="{{site_root}}/home/{{username}}"
-                          title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span>Home</a>
+                          title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span> Home</a>
                       </li>
                       <li{{#is_mentions}} class="active"{{/is_mentions}}>
                         <a href="{{site_root}}/home/{{username}}/mentions" 
-                          title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span>Mentions</a>
+                          title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span> Mentions</a>
                       </li>
                       <li {{^remoteuser}}class="active"{{/remoteuser}}>
                         <a href="{{site_root}}/messages/{{username}}"
-                          title="direct messages from/to @{{username}}"><span class="glyphicon glyphicon-envelope"></span>Messages</a>
+                          title="direct messages from/to @{{username}}"><span class="glyphicon glyphicon-envelope"></span> Messages</a>
                       </li>
                     </ul>
                   </div>

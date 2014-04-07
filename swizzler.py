@@ -66,12 +66,14 @@ class SwizzlerApp(object):
         twist = twister.get_twist(username,k)
         twist['style_large'] = True
         rts = twister.get_twist_rts(username,k)
+        replies = twister.get_twist_replies(username,k)
         result = {
             'is_twist':True,
             'title':u"@{0}: {1} - Swizzler".format(username,twist['time']),
             'twist':twist,
             'in_reply_to':twist.get('reply') and twister.get_twist(twist['reply']['username'],twist['reply']['k']) or None,
-            'replies':twister.get_twist_replies(username,k),
+            'replies':replies,
+            'any_replies':not not replies,
             'rts':rts,
             'any_rts':not not rts,
             'local_users':twister.local_user_menu()['users'],
@@ -80,7 +82,9 @@ class SwizzlerApp(object):
         }
         return stache.render(stache.load_template('twist'),result)
     @cherrypy.expose
-    def user(self,username):
+    def user(self,username='nobody'):
+        if username=='nobody':
+            raise cherrypy.HTTPRedirect('/') # sponsored posts are nobody's profile
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
         user = twister.get_user_info(username)
@@ -129,7 +133,9 @@ class SwizzlerApp(object):
         }
         return stache.render(stache.load_template('standard'),result)
     @cherrypy.expose
-    def home(self,localusername,mode='feed'):
+    def home(self,localusername='nobody',mode='feed'):
+        if localusername=='nobody':
+            raise cherrypy.HTTPRedirect('/') # sponsored posts are nobody's home
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
         menu = twister.local_user_menu(localusername)
@@ -158,6 +164,7 @@ class SwizzlerApp(object):
         remoteuser = remoteusername and twister.get_user_info(remoteusername) or None
         threads = remoteusername and twister.get_user_messages(localusername,remoteusername,conf['num_messages']) or twister.get_user_messages(localusername)
         result = {
+            'is_messages':True,
             'title':u"{0} (@{1}): direct messages{2}".format(
                 localuser['fullname'],localuser['username'],
                 remoteuser and u" with {fullname} (@{username}) - Swizzler".format(**remoteuser) or ""),

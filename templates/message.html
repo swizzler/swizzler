@@ -6,11 +6,13 @@
   <div class="media-body">
     {{#username}}
       <h5 class="media-heading">
-        {{^threads}}
+        {{^is_messages}}
           <span class="pull-right small">
             {{^is_sponsored}}<a title="View twist details" href="{{site_root}}/twist/{{.}}/{{k}}">{{/is_sponsored}}{{time}}{{^is_sponsored}}</a>{{/is_sponsored}}
+            {{#is_sponsored}}<span class="pull-right small">{{time}}</span>{{/is_sponsored}}
           </span>
-        {{/threads}}
+        {{/is_messages}}
+        {{#is_messages}}<span class="pull-right small">{{time}}</span>{{/is_messages}}
         {{#rt_username}}
           <small>
             <a href="{{site_root}}/user/{{.}}" title="@{{.}}'s profile">@{{.}}</a>

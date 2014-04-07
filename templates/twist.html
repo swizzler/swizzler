@@ -17,12 +17,13 @@
           <div class="panel panel-default">
             {{#in_reply_to}}
               <div class="panel-heading avatars32">
+                <span class="label label-info"><span class="glyphicon glyphicon-share-alt"></span>In reply to:</span>
                 <ul class="list-group media-list">{{> message}}</ul>
               </div>
             {{/in_reply_to}}
             <div class="panel-body">
               {{#twist}}
-                <div class="lead well">
+                <div class="lead alert alert-info">
                   <ul class="list-group media-list">{{> message}}</ul>
                 </div>
                 {{#any_rts}}
@@ -38,11 +39,14 @@
                 {{/any_rts}}
               {{/twist}}
             </div>
-            {{#replies}}
+            {{#any_replies}}
               <div class="panel-footer avatars32">
-                <ul class="list-group media-list">{{> message}}</ul>
+                <span class="label label-info"><span class="glyphicon glyphicon-arrow-up"></span>Replies:</span>
+                <ul class="list-group media-list">
+                  {{#replies}}{{> message}}{{/replies}}
+                </ul>
               </div>
-            {{/replies}}
+            {{/any_replies}}
           </div>
         </div>
         <div id="sidebar" class="col-md-4">

@@ -32,15 +32,15 @@
                     <ul class="nav nav-pills">
                       <li{{#is_feed}} class="active"{{/is_feed}}>
                         <a href="{{site_root}}/home/{{username}}"
-                          title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span>Home</a>
+                          title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span> Home</a>
                       </li>
                       <li{{#is_mentions}} class="active"{{/is_mentions}}>
                         <a href="{{site_root}}/home/{{username}}/mentions" 
-                          title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span>Mentions</a>
+                          title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span> Mentions</a>
                       </li>
                       <li>
                         <a href="{{site_root}}/messages/{{username}}"
-                          title="direct messages from/to @{{username}}"><span class="glyphicon glyphicon-envelope"></span>Messages</a>
+                          title="direct messages from/to @{{username}}"><span class="glyphicon glyphicon-envelope"></span> Messages</a>
                       </li>
                     </ul>
                   </div>
@@ -58,11 +58,20 @@
                   </a>
                   <div class="media-body">
                     {{#is_user}}
-                      <h4 class="media-heading">
+                      <h2 class="media-heading">
                         {{#location}}<span class="pull-right small">{{.}}</span>{{/location}}
-                        <a class="label label-primary" href="{{site_root}}/user/{{username}}"><span class="glyphicon glyphicon-user"></span>
-                          {{fullname}}</a>
-                        {{#url}}<small><a target="_blank" href="{{.}}">{{.}}</a></small>{{/url}}</h4>
+                        {{#is_sponsored}}
+                          <abbr class="btn btn-info" href="#"
+title="&#10077;Let us make a toast
+  to the ones who mined the blocks
+  and their sponsored twists&#10078;
+    &mdash; &#65312;&#120303;&#120313;&#120316;&#120304;&#120312;&#120309;&#120302;&#120320;&#120309;'s bio, Haiku edition">
+                            <span class="glyphicon glyphicon-glass"></span>
+                          </abbr>
+                        {{/is_sponsored}}
+                        {{^is_sponsored}}<span class="glyphicon glyphicon-user"></span>{{/is_sponsored}}
+                        {{fullname}}
+                        {{#url}}<small><a target="_blank" href="{{.}}">{{.}}</a></small>{{/url}}</h2>
                       {{{bio}}}
                     {{/is_user}}
                     {{#is_tag}}
