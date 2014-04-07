@@ -33,18 +33,25 @@
   </ul>
 </div>
 
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <form target="searchresult" tag="searchresult" method=get action="{{site_root}}/search" class="inline-form" role="search">
+    <form method=get action="{{site_root}}/tag" class="form-horizontal" role="search">
       <div class="form-group">
-        <label for="#search"><span class="glyphicon glyphicon-search"></span> Search for tag or partial username</label>
-        <input id="q" name="q" type="text" class="form-control" placeholder="#twister or @twi"{{#user_prefix}} value="{{.}}"{{/user_prefix}}>
+        <label class="col-xs-4 text-right" for="#tag">Tag <span class="glyphicon glyphicon-tag"></span></label>
+        <div class="col-xs-8">
+          <input id="tag" name="tag" type="text" class="form-control input-sm" placeholder="#twister"{{#user_prefix}} value="{{.}}"{{/user_prefix}}>
+        </div>
       </div>
     </form>
-  </div>
-</div>
+    <form target="searchresult" tag="searchresult" method=get action="{{site_root}}/search_embed" class="form-horizontal" role="search">
+      <div class="form-group">
+        <label class="col-xs-4 text-right" for="#userprefix">Usernam... <span class="glyphicon glyphicon-user"></span></label>
+        <div class="col-xs-8">
+          <input id="userprefix" name="userprefix" type="text" class="form-control input-sm" placeholder="@twi"{{#user_prefix}} value="{{.}}"{{/user_prefix}}>
+        </div>
+      </div>
+    </form>
+
     <iframe name="searchresult" class="thumbnail media-object {{#fromMe}}pull-right{{/fromMe}}{{^fromMe}}pull-left{{/fromMe}}"
       style="width:100%; border:none; padding:0; background:none; overflow:hidden"
       width=100 height=2645 seamless=seamless
-      src="{{site_root}}/search"></iframe>
+      src="{{site_root}}/search_embed"></iframe>
   </div>

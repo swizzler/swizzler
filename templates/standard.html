@@ -15,62 +15,72 @@
       <div class="row">
         <div id="main" class="col-md-8">
           <div class="row">
-            <div id="header" class="col-md-12 well">
-              {{#subject}}
-                <div class="media">
-                  <a class="pull-left thumbnail" href="{{#username}}/user/{{.}}{{/username}}{{^username}}#{{/username}}">
-                    <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
-                  </a>
-                  <div class="media-body">
-                    {{#is_home}}
-                      {{#username}}
-                        <h3 class="media-heading">
-                          {{#is_feed}}
-                            <a class="label label-primary" href="{{site_root}}/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span>
-                              {{fullname}}'s home</a>
-                          {{/is_feed}}
-                          {{#is_mentions}}
-                            <a class="label label-primary" href="{{site_root}}/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span>
-                              Mentions of {{fullname}}</a>
-                          {{/is_mentions}}
-                          {{#is_messages}}
-                            <a class="label label-primary" href="{{site_root}}/messages/{{username}}" title="direct messages to/from @{{username}}"><span class="glyphicon glyphicon-envelope"></span>
-                              {{fullname}}</a>
-                          {{/is_messages}}
-                        </h3>
-                        <h4>
-                          {{^is_feed}}
-                            <a class="label label-primary" href="{{site_root}}/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span>Home</a>
-                          {{/is_feed}}
-                          {{^is_mentions}}
-                            <a class="label label-primary" href="{{site_root}}/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span>Mentions</a>
-                          {{/is_mentions}}
-                          {{^is_messages}}
-                            <a class="label label-primary" href="{{site_root}}/messages/{{username}}" title="direct messages from/to @{{username}}"><span class="glyphicon glyphicon-envelope"></span>Messages</a>
-                          {{/is_messages}}
-                          <a class="label label-info" href="{{site_root}}{{#username}}/user/{{.}}{{/username}}" title="@{{username}}'s profile"><span class="glyphicon glyphicon-user"></span>Profile</a>
-                        </h4>
-                      {{/username}}
-                    {{/is_home}}
-                    {{#is_user}}
-                      <h4 class="media-heading">
-                        {{#location}}<span class="pull-right small">{{.}}</span>{{/location}}
-                        <a class="label label-primary" href="{{site_root}}/user/{{username}}"><span class="glyphicon glyphicon-user"></span>
-                          {{fullname}}</a>
-                        {{#url}}<small><a target="_blank" href="{{.}}">{{.}}</a></small>{{/url}}</h4>
-                      {{{bio}}}
-                    {{/is_user}}
-                    {{#is_tag}}
-                      <h2 class="media-heading">
-                        <small><span class="glyphicon glyphicon-tag"></span> Latest twists containing the tag:</small><br>
-                        #{{fullname}}
-                      </h2>
-                    {{/is_tag}}
-                  </div>
+            {{#is_home}}
+              <div class="panel panel-primary">
+                <div class="panel-heading">
+                {{#username}}
+                  <h3 class="panel-title">
+                    {{#is_feed}}
+                      <a class="label label-primary" href="{{site_root}}/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span>
+                        {{fullname}}'s home</a>
+                    {{/is_feed}}
+                    {{#is_mentions}}
+                      <a class="label label-primary" href="{{site_root}}/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span>
+                        Mentions of {{fullname}}</a>
+                    {{/is_mentions}}
+                    {{#is_messages}}
+                      <a class="label label-primary" href="{{site_root}}/messages/{{username}}" title="direct messages to/from @{{username}}"><span class="glyphicon glyphicon-envelope"></span>
+                        {{fullname}}</a>
+                    {{/is_messages}}
+                  </h3>
+                {{/username}}
+                {{^username}}
+                {{/username}}
                 </div>
-              {{/subject}}
-            </div>
-          </div>
+                <div class="panel-body">
+                  <h4>
+                    {{^is_feed}}
+                      <a class="label label-primary" href="{{site_root}}/home/{{username}}" title="@{{username}}'s home"><span class="glyphicon glyphicon-home"></span>Home</a>
+                    {{/is_feed}}
+                    {{^is_mentions}}
+                      <a class="label label-primary" href="{{site_root}}/home/{{username}}/mentions" title="mentions of @{{username}}"><span class="glyphicon glyphicon-bell"></span>Mentions</a>
+                    {{/is_mentions}}
+                    {{^is_messages}}
+                      <a class="label label-primary" href="{{site_root}}/messages/{{username}}" title="direct messages from/to @{{username}}"><span class="glyphicon glyphicon-envelope"></span>Messages</a>
+                    {{/is_messages}}
+                    <a class="label label-info" href="{{site_root}}{{#username}}/user/{{.}}{{/username}}" title="@{{username}}'s profile"><span class="glyphicon glyphicon-user"></span>Profile</a>
+                  </h4>
+                </div>
+              </div>
+            {{/is_home}}
+            {{^is_home}}
+              <div id="header" class="col-md-12 well">
+                {{#subject}}
+                  <div class="media">
+                    <a class="pull-left thumbnail" href="{{#username}}/user/{{.}}{{/username}}{{^username}}#{{/username}}">
+                      <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
+                    </a>
+                    <div class="media-body">
+                      {{#is_user}}
+                        <h4 class="media-heading">
+                          {{#location}}<span class="pull-right small">{{.}}</span>{{/location}}
+                          <a class="label label-primary" href="{{site_root}}/user/{{username}}"><span class="glyphicon glyphicon-user"></span>
+                            {{fullname}}</a>
+                          {{#url}}<small><a target="_blank" href="{{.}}">{{.}}</a></small>{{/url}}</h4>
+                        {{{bio}}}
+                      {{/is_user}}
+                      {{#is_tag}}
+                        <h2 class="media-heading">
+                          <small><span class="glyphicon glyphicon-tag"></span> Latest twists containing the tag:</small><br>
+                          #{{fullname}}
+                        </h2>
+                      {{/is_tag}}
+                    </div>
+                  </div>
+                {{/subject}}
+              </div>
+            {{/is_home}}
+          </div><!-- /.row -->
           <div class="row">
             <div id="messages" class="col-md-12">
             {{#any_messages}}<ul class="list-group media-list">{{#messages}}{{> message}}{{/messages}}</ul>{{/any_messages}}

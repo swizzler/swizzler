@@ -46,18 +46,15 @@ def format_trending(twister,num_messages=8):
 ### The Swizzler app
 class SwizzlerApp(object):
     @cherrypy.expose
-    def search(self,q=''):
+    def search_embed(self,userprefix=''):
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
         result = {'site_root':cherrypy.request.base+cherrypy.request.script_name}
-        q = q.strip().split(' ')[0] # ignore anything after the first space if any
-        if q.startswith('#'): # user said "#sometag", change to "sometag"
-            q=q[1:]
-        if q and not q.startswith('@'): # Tag. redirect.
-            raise cherrypy.HTTPRedirect(result['site_root']+'/tag/{0}'.format(q))
-        if q:
-            result['user_prefix'] = q
-            result['users'] = twister.get_users_by_partial_name(q[1:],conf['num_messages'])
+        userprefix = userprefix.strip().split(' ')[0]
+        if not userprefix.startswith('@'): userprefix = '@'+userprefix
+        if len(userprefix)>1:
+            result['user_prefix'] = userprefix
+            result['users'] = twister.get_users_by_partial_name(userprefix[1:],conf['num_messages'])
         else:
             result['trending'] = format_trending(twister,conf['num_messages'])
         return stache.render(stache.load_template('search'),result)
@@ -112,7 +109,11 @@ class SwizzlerApp(object):
         result['style_{0}'.format(style)] = True
         return stache.render(stache.load_template('user-iframe'),result)
     @cherrypy.expose
-    def tag(self,tag):
+    def tag(self,tag=''):
+        tag = tag.strip().split(' ')[0]
+        if tag.startswith('#'): tag = tag[1:]
+        if not tag:
+            raise cherrypy.HTTPRedirect('/') # go home to sponsored posts
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
         messages = twister.get_tag_posts(tag)
