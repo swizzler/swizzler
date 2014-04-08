@@ -102,7 +102,7 @@ class Twister:
     def get_following(self,localusername):
         return [{"username":u} for u in self.twister.getfollowing(localusername)]
     @functioncache(60*5,ignore_instance=True)
-    def get_sponsored_posts(self,num=8):
+    def get_promoted_posts(self,num=8):
         return reversed([self._format_post_info(p) for p in self.twister.getspamposts(num)]) # Don't ask me why reversed :)
     @functioncache(60,ignore_instance=True)
     def get_tag_posts(self,tag):

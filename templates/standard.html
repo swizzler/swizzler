@@ -60,16 +60,16 @@
                     {{#is_user}}
                       <h2 class="media-heading">
                         {{#location}}<span class="pull-right small">{{.}}</span>{{/location}}
-                        {{#is_sponsored}}
+                        {{#is_promoted}}
                           <abbr class="btn btn-info" href="#"
 title="&#10077;Let us make a toast
-  to the ones who mined the blocks
-  and their sponsored twists&#10078;
+  to the ones who mine the blocks.
+  Read promoted posts!&#10078;
     &mdash; &#65312;&#120303;&#120313;&#120316;&#120304;&#120312;&#120309;&#120302;&#120320;&#120309;'s bio, Haiku edition">
                             <span class="glyphicon glyphicon-glass"></span>
                           </abbr>
-                        {{/is_sponsored}}
-                        {{^is_sponsored}}<span class="glyphicon glyphicon-user"></span>{{/is_sponsored}}
+                        {{/is_promoted}}
+                        {{^is_promoted}}<span class="glyphicon glyphicon-user"></span>{{/is_promoted}}
                         {{fullname}}
                         {{#url}}<small><a target="_blank" href="{{.}}">{{.}}</a></small>{{/url}}</h2>
                       {{{bio}}}

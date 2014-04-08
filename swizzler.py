@@ -84,7 +84,7 @@ class SwizzlerApp(object):
     @cherrypy.expose
     def user(self,username='nobody'):
         if username=='nobody':
-            raise cherrypy.HTTPRedirect('/') # sponsored posts are nobody's profile
+            raise cherrypy.HTTPRedirect('/') # promoted posts are nobody's profile
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
         user = twister.get_user_info(username)
@@ -117,7 +117,7 @@ class SwizzlerApp(object):
         tag = tag.strip().split(' ')[0]
         if tag.startswith('#'): tag = tag[1:]
         if not tag:
-            raise cherrypy.HTTPRedirect('/') # go home to sponsored posts
+            raise cherrypy.HTTPRedirect('/') # go home to promoted posts
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
         messages = twister.get_tag_posts(tag)
@@ -135,7 +135,7 @@ class SwizzlerApp(object):
     @cherrypy.expose
     def home(self,localusername='nobody',mode='feed'):
         if localusername=='nobody':
-            raise cherrypy.HTTPRedirect('/') # sponsored posts are nobody's home
+            raise cherrypy.HTTPRedirect('/') # promoted posts are nobody's home
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
         menu = twister.local_user_menu(localusername)
@@ -181,21 +181,21 @@ class SwizzlerApp(object):
     def index(self):
         conf = cherrypy.request.app.config['swizzler']
         twister = Twister(conf['rpc_url'],format_twist)
-        messages = twister.get_sponsored_posts(conf['num_messages'])
+        messages = twister.get_promoted_posts(conf['num_messages'])
         result = {
             'is_user':True, # i.e. we want to display "bio" and not mentions/DMs/profile buttons
-            'is_sponsored':True, # message template needs to know not to show "permalink"
+            'is_promoted':True, # message template needs to know not to show "permalink"
             'title':"Welcome to Swizzler",
             'local_users':twister.local_user_menu('')['users'], # '' means: "Nobody" is active
             'info':twister.get_info(),
-            'subject':{ # pseudo-user describing sponsored posts
-                'fullname':'Sponsored posts',
+            'subject':{ # pseudo-user describing promoted posts
+                'fullname':'Promoted posts',
                 'bio':format_twist("""
 Mining the twister blockchain protects the #twister-verse from attacks like http://twister.net.co/?p=236
 but unlike doge, we don't have shiny coins to offer "our protectors".
-Instead, they enjoy occasional minutes of fame in the form of the sponsored posts you see here.
+Instead, they enjoy occasional minutes of fame in the form of the promoted posts you see here.
 We #Respect their hard earned crypto-graffiti by appreciating them on coffee/spliff/soy-milk/etc. breaks, because that's how we roll yo.
-Start mining today, and all this (AND moral satisfaction) can be yours.""")
+Start mining today, and this (&#119834;&#119847;&#119837; moral satisfaction) can be yours.""")
             },
             'messages':messages,
             'any_messages':not not messages,

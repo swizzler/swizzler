@@ -8,8 +8,8 @@
       <h5 class="media-heading">
         {{^is_messages}}
           <span class="pull-right small">
-            {{^is_sponsored}}<a title="View twist details" href="{{site_root}}/twist/{{.}}/{{k}}">{{/is_sponsored}}{{time}}{{^is_sponsored}}</a>{{/is_sponsored}}
-            {{#is_sponsored}}<span class="pull-right small">{{time}}</span>{{/is_sponsored}}
+            {{^is_promoted}}<a title="View twist details" href="{{site_root}}/twist/{{.}}/{{k}}">{{/is_promoted}}{{time}}{{^is_promoted}}</a>{{/is_promoted}}
+            {{#is_promoted}}<span class="pull-right small">{{time}}</span>{{/is_promoted}}
           </span>
         {{/is_messages}}
         {{#is_messages}}<span class="pull-right small">{{time}}</span>{{/is_messages}}
