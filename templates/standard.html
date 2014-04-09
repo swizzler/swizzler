@@ -26,7 +26,7 @@
                 <div class="media avatars32">
                   <a class="pull-left thumbnail" href="{{site_root}}/user/{{username}}"
                     title="@{{username}}'s profile">
-                    <img class="media-object avatar" src="{{avatar}}" alt="{{fullname}}">
+                    <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
                   </a>
                   <div class="media-body">
                     <ul class="nav nav-pills">

@@ -18,7 +18,8 @@
             <span class="glyphicon glyphicon-retweet"></span>
           </small>
         {{/rt_username}}
-        <a href="{{site_root}}/user/{{username}}" title="@{{username}}'s profile"><strong>@{{username}}</strong></a>
+        {{^is_promoted}}<a href="{{site_root}}/user/{{username}}" title="@{{username}}'s profile"><strong>@{{username}}</strong></a>{{/is_promoted}}
+        {{#is_promoted}}<div class="badge"><span class="glyphicon glyphicon-glass"></span> Promoted post</div>{{/is_promoted}}
         {{^is_twist}}{{#reply}}
           <small>
             <span class="glyphicon glyphicon-share-alt"></span>
