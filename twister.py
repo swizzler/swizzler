@@ -59,7 +59,7 @@ class Twister:
         })
     @functioncache(60,ignore_instance=True)
     def get_twist_replies(self,username,k):
-        return reversed([self._format_post_info(r['p']['v']) for r in self.twister.dhtget(username,'replies{0}'.format(k),'m')]) # We show them oldest first
+        return list(reversed([self._format_post_info(r['p']['v']) for r in self.twister.dhtget(username,'replies{0}'.format(k),'m')])) # We show them oldest first
     @functioncache(60,ignore_instance=True)
     def get_twist_rts(self,username,k):
         return [self._format_post_info(r['p']['v']) for r in self.twister.dhtget(username,'rts{0}'.format(k),'m')]
@@ -103,7 +103,7 @@ class Twister:
         return [{"username":u} for u in self.twister.getfollowing(localusername)]
     @functioncache(60*5,ignore_instance=True)
     def get_promoted_posts(self,num=8):
-        return reversed([self._format_post_info(p) for p in self.twister.getspamposts(num)]) # Don't ask me why reversed :)
+        return list(reversed([self._format_post_info(p) for p in self.twister.getspamposts(num)])) # Don't ask me why reversed :)
     @functioncache(60,ignore_instance=True)
     def get_tag_posts(self,tag):
         return [self._format_post_info(p['p']['v']) for p in self.twister.dhtget(tag,'hashtag','m')]
