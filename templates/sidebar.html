@@ -9,7 +9,7 @@
     {{#local_users}}
       <li class="media list-group-item avatars32{{#active}} active{{/active}}">
         <a {{#username}}title="@{{username}}'s home" {{/username}}class="pull-left thumbnail" href="{{site_root}}/{{#username}}home/{{.}}{{/username}}">
-          <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
+          <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}{{site_root}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
         </a>
         <div class="media-body">
           <h5 class="media-heading">

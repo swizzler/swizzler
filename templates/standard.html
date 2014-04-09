@@ -26,7 +26,7 @@
                 <div class="media avatars32">
                   <a class="pull-left thumbnail" href="{{site_root}}/user/{{username}}"
                     title="@{{username}}'s profile">
-                    <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
+                    <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}{{site_root}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
                   </a>
                   <div class="media-body">
                     <ul class="nav nav-pills">
@@ -52,23 +52,34 @@
             <div id="header" class="col-md-12 well">
               {{#subject}}
                 <div class="media">
-                  <a class="pull-left thumbnail" href="{{site_root}}{{#username}}/user/{{.}}{{/username}}{{^username}}#{{/username}}"
+                  <a class="pull-left thumbnail" href="{{site_root}}{{#username}}/user/{{.}}{{/username}}{{#is_tag}}/tag/{{fullname}}{{/is_tag}}"
                     {{#username}}title="@{{username}}'s profile"{{/username}}>
-                    <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/genericPerson.png{{/avatar}}" alt="{{fullname}}">
+                    {{#is_user}}{{^is_promoted}}
+                      <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}{{site_root}}/assets/img/genericPerson.png{{/avatar}}" alt="{{fullname}}">
+                    {{/is_promoted}}{{/is_user}}
+                    {{#is_tag}}
+                      <abbr class="btn btn-info btn-lg" href="#"
+title="&#10077;Tags are just like cats:
+  popular for reasons that
+  no one can predict&#10078;
+    &mdash; Future robot cat Haiku">
+                        <span class="glyphicon glyphicon-tag"></span>
+                      </abbr>
+                    {{/is_tag}}
+                    {{#is_promoted}}
+                      <abbr class="btn btn-info btn-lg" href="#"
+title="&#10077;Let us make a toast
+  to the ones who mine the blocks.
+  Read promoted posts!&#10078;
+    &mdash; &#65312;&#120303;&#120313;&#120316;&#120304;&#120312;&#120309;&#120302;&#120320;&#120309;'s bio, Haiku edition">
+                        <span class="glyphicon glyphicon-glass"></span>
+                      </abbr>
+                    {{/is_promoted}}
                   </a>
                   <div class="media-body">
                     {{#is_user}}
                       <h2 class="media-heading">
                         {{#location}}<span class="pull-right small">{{.}}</span>{{/location}}
-                        {{#is_promoted}}
-                          <abbr class="btn btn-info" href="#"
-title="&#10077;Let us make a toast
-  to the ones who mine the blocks.
-  Read promoted posts!&#10078;
-    &mdash; &#65312;&#120303;&#120313;&#120316;&#120304;&#120312;&#120309;&#120302;&#120320;&#120309;'s bio, Haiku edition">
-                            <span class="glyphicon glyphicon-glass"></span>
-                          </abbr>
-                        {{/is_promoted}}
                         {{^is_promoted}}<span class="glyphicon glyphicon-user"></span>{{/is_promoted}}
                         {{fullname}}
                         {{#url}}<small><a target="_blank" href="{{.}}">{{.}}</a></small>{{/url}}</h2>

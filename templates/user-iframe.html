@@ -20,7 +20,7 @@
         <div class="media{{^style_large}} avatars42{{/style_large}}">
           {{#username}}
             <a class="{{#style_from_me}}pull-left{{/style_from_me}}{{^style_from_me}}pull-right{{/style_from_me}} thumbnail" target="_top" href="{{site_root}}/user/{{.}}" title="{{fullname}} (@{{username}})'s profile">
-              <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/genericPerson.png{{/avatar}}" alt="{{fullname}}">
+              <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}{{site_root}}/assets/img/genericPerson.png{{/avatar}}" alt="{{fullname}}">
             </a>
           {{/username}}
           {{^username}}
