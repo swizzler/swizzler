@@ -9,7 +9,6 @@
         {{^is_messages}}
           <span class="pull-right small">
             {{^is_promoted}}<a title="View twist details" href="{{site_root}}/twist/{{.}}/{{k}}">{{/is_promoted}}{{time}}{{^is_promoted}}</a>{{/is_promoted}}
-            {{#is_promoted}}<span class="pull-right small">{{time}}</span>{{/is_promoted}}
           </span>
         {{/is_messages}}
         {{#is_messages}}<span class="pull-right small">{{time}}</span>{{/is_messages}}
@@ -31,7 +30,11 @@
     {{^username}}
       <h5 class="media-heading">
         <span class="pull-right small">{{time}}</span>
-        <a href="{{site_root}}/">@{{username}}</a>
+            <abbr
+title="&#10077;&#120289;&#120316;&#120303;&#120316;&#120305;&#120326; regrets
+  that this twist is not here [yet?].
+  Sorry for the wait&#10078;
+    &mdash; BOFH, polite Haiku edition">Nobody</abbr>
       </h5>
     {{/username}}
     {{{message}}}

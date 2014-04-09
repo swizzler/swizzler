@@ -53,8 +53,8 @@
               {{#subject}}
                 <div class="media">
                   <a class="pull-left thumbnail" href="{{site_root}}{{#username}}/user/{{.}}{{/username}}{{^username}}#{{/username}}"
-                    {{#username}}title="@{{usermame}}'s profile"{{/username}}>
-                    <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/twister-64.jpg{{/avatar}}" alt="{{fullname}}">
+                    {{#username}}title="@{{username}}'s profile"{{/username}}>
+                    <img class="media-object avatar" src="{{#avatar}}{{.}}{{/avatar}}{{^avatar}}/assets/img/genericPerson.png{{/avatar}}" alt="{{fullname}}">
                   </a>
                   <div class="media-body">
                     {{#is_user}}
@@ -72,7 +72,7 @@ title="&#10077;Let us make a toast
                         {{^is_promoted}}<span class="glyphicon glyphicon-user"></span>{{/is_promoted}}
                         {{fullname}}
                         {{#url}}<small><a target="_blank" href="{{.}}">{{.}}</a></small>{{/url}}</h2>
-                      {{{bio}}}
+                      <h4><small>{{{bio}}}</small></h4>
                     {{/is_user}}
                     {{#is_tag}}
                       <h2 class="media-heading">

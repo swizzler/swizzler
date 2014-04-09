@@ -54,7 +54,7 @@ class Twister:
             #"user":self.get_user_info('nobody'),
             "k":0, # maybe something needs this
             "lastk":0, # or this
-            "message":"Twist not found (maybe it's private?) &#128557;",
+            "message":"Twist not found &#128557;",
             "time":"Never"
         })
     @functioncache(60,ignore_instance=True)
