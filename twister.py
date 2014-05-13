@@ -1,6 +1,9 @@
 import time
 from bitcoinrpc.authproxy import AuthServiceProxy
 from functioncache import functioncache,SkipCache
+import re
+
+RE_URL_TWEAK = re.compile('^https?://',re.I)
 
 def timestamp2iso(t):
     return time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(t))
@@ -75,7 +78,11 @@ class Twister:
         user['username'] = username # handy
         if not user.get('fullname'): # happens
             user['fullname'] = username.capitalize() # Buddha is in the details
-        user['bio']=self._format_message(user.get('bio',''))
+        user['bio'] = self._format_message(user.get('bio',''))
+        # Tweak for "protcol-less" urls
+        u = user.get('url')
+        if u and not RE_URL_TWEAK.match(u):
+            user['url'] = 'http://{0}'.format(u)
         try:
             user['avatar'] = self.twister.dhtget(username,'avatar','s')[0]['p']['v']
             if user['avatar']=='img/genericPerson.png': # ugly patch

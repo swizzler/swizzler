@@ -209,7 +209,6 @@ if __name__ == '__main__':
     cherrypy.tree.mount(app,'/',config='{0}/cherrypy.config'.format(APPDIR))
     conf = cherrypy.tree.apps[''].config
     u,p = conf['swizzler'].get('browser_user'),conf['swizzler'].get('browser_password')
-    print u,p
     if u and p:
         conf['/'].update({ 'tools.basic_auth.on': True,
             'tools.basic_auth.realm': 'Swizzler VIP lounge',
