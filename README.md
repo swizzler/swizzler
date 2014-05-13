@@ -15,7 +15,7 @@ We're [this close](http://s3.amazonaws.com/dk-production/images/36637/large/alex
 ### Roadmap
 
 * [db instead of cache](https://github.com/swizzler/swizzler/wiki/from-cache-to-db)
-* Add "write" functionality (post, follow, etc.). Implement all [or most of] the functionality of standrd/calm client.
+* Add "write" functionality (post, follow, etc.). Implement all [or most of] the functionality of standard/calm client.
 * [Additional features](https://github.com/swizzler/swizzler/wiki/Ideas-for-features)
 * *Insert here stuff I've overlooked*
 * Then we take Berlin
@@ -28,7 +28,7 @@ We're [this close](http://s3.amazonaws.com/dk-production/images/36637/large/alex
 * [Pystache](https://pypi.python.org/pypi/pystache/)
 * [twitter-text-python](https://pypi.python.org/pypi/twitter-text-python/)
 
-You also need tweaked versios
+You also need tweaked versions
 of [python-bitcoinrpc](https://github.com/thedod/python-bitcoinrpc/tree/for-twister)
 and [functioncache](https://github.com/thedod/functioncache/tree/skip-cache)
 but these are defined as git submodules, so `install.sh` takes care of them.
